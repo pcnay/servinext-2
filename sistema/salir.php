@@ -1,6 +1,6 @@
 <?php
   //require_once "./Modelo/UsuarioModelo.php";
-  require_once "SesionControlador.php";
+  //require_once "SesionControlador.php";
   
   
   //$usuario_session = new SesionControlador();

@@ -4,7 +4,7 @@
   $conectar->query = "SELECT * FROM t_Clientes";
   //var_dump($conectar->query);
   $contenido = $conectar->get_query();
-//  var_dump($conectar->rows);
+  var_dump($conectar->rows);
 
   $datos2 = array();
 
