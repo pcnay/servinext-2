@@ -31,8 +31,19 @@
     {
       $this->db_open();
       //$this->conn->query() = Es un método de la clase "mysqli" 
-      $this->conexion->query($this->query);
+      //$this->conexion->query($this->query);
+      if ($this->conexion->query($this->query))
+      {
+        $consultaCorrecta = true;
+      }
+      else
+      {
+        $consultaCorrecta = false;
+      }
+
       $this->db_close();
+      //var_dump($consultaCorrecta);
+      return $consultaCorrecta;
     }
 
       // Obtener resultados de un Query.

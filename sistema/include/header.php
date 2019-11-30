@@ -12,7 +12,7 @@
 <header>
 		<div class="header">
 			
-			<h1>Sistema Facturación</h1>
+			<h1>Sistema Control SGI</h1>
 			<div class="optionsBar">
 				<p>Tijuana, <?php echo fechaC(); ?> </p>
 				<span>|</span>

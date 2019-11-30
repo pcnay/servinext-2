@@ -165,7 +165,7 @@ nav li ul li:last-child{
 /* Se define el ancho de los campos de las capturas */
 .form_register
 {
-	width:450px;
+	width:450px; /* 450px;*/
 	margin:auto;
 }
 

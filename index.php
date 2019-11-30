@@ -42,24 +42,23 @@
         $pass = MD5($_POST['clave']);
         
 
-        $conectar = new Conexion();
-        
+        $conectar = new Conexion();        
         $conectar->query = "SELECT * FROM t_Usuarios WHERE usuario = '$user' AND clave = '$pass'";
-        $conectar->get_query();
-       
-        $datos2 = array();
-        foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
-        {
-          // Agrega al final del arreglo una nueva posicion.
-          array_push($datos2,$contenidoCampo);
-          // La otra forma:
-          // $datos[$nombreCampo] = $contenidoCampo;
-
-        }
+        $conectar->get_query();       
         
         //Encontro el usario
-        if (!empty($datos2))
+        if (!empty($conectar->rows))
         {
+          $datos2 = array();
+          foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
+          {
+            // Agrega al final del arreglo una nueva posicion.
+            array_push($datos2,$contenidoCampo);
+            // La otra forma:
+            // $datos[$nombreCampo] = $contenidoCampo;
+  
+          }
+  
           $_SESSION['active'] = true;
           $_SESSION['nombre'] = $datos2[0]['nombre'];
           $_SESSION['email'] = $datos2[0]['email'];

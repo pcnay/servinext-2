@@ -4,7 +4,7 @@
   $conectar->query = "SELECT * FROM t_Clientes";
   //var_dump($conectar->query);
   $contenido = $conectar->get_query();
-  var_dump($conectar->rows);
+  //var_dump($conectar->rows);
 
   $datos2 = array();
 
@@ -19,10 +19,11 @@
     // $datos[$nombreCampo] = $contenidoCampo;
 
   }
-  print_r ($datos2[0]['id_clientes']);
-  print_r ($datos2[0]['nombre']);
+  print_r (count($datos2)); // Muestra cuantos elementos tiene el arreglo.
+  //print_r ($datos2[0]['id_clientes']);
+  //print_r ($datos2[0]['nombre']);
 
-  print ("Insertar un dato");
+  //print ("Insertar un dato");
   $conectar->query = "INSERT INTO t_Clientes (id_clientes,nombre) VALUES (0,'Agregando Campo desde el objeto')";
   $conectar->set_query();
   

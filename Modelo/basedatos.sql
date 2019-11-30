@@ -42,6 +42,12 @@ CREATE TABLE t_Modelo
   descripcion VARCHAR(80) NOT NULL
 );
 
+CREATE TABLE t_Rol
+(
+  id_rol INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  rol VARCHAR(80) NOT NULL
+);
+
 CREATE TABLE t_Clientes
 (
   id_clientes INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -117,7 +123,10 @@ CREATE TABLE t_Usuarios
   nombre  VARCHAR(100) NOT NULL,
   cumpleanos DATE NOT NULL,
   clave CHAR(32) NOT NULL, /* Encriptar en MySQL con MD5, requiere 32 posiciones */
-  perfil ENUM ('Admin','User') NOT NULL
+  perfil ENUM ('Admin','User') NOT NULL,
+  id_rol INTEGER UNSIGNED NOT NULL,
+  FOREIGN KEY(id_rol) REFERENCES t_Rol(id_rol)
+    ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE t_Historico_epo
@@ -170,6 +179,11 @@ INSERT INTO t_Modelo (id_modelo,descripcion) VALUES
   (2,'MX611'),
   (3,'Optiplex 970');
 
+INSERT INTO t_Rol (id_rol,rol) VALUES
+  (1,'Administrador'),
+  (2,'Supervisor'),
+  (3,'ingenieria');
+
 INSERT INTO t_Clientes (id_clientes,nombre) VALUES
   (1,'Banamex'),
   (2,'Nacional Monte De Piedad'),
@@ -197,9 +211,9 @@ INSERT INTO t_Historico_epo (id_Historico_epo,notas,id_modelo,id_marca,id_client
 	(2,'Campo De Notas 2',1,1,1,1,1,'2018-06-20'),
 	(3,'Campo De Notas 3',1,1,1,1,1,'2018-07-19');
 
-INSERT INTO t_Usuarios (usuario,email,nombre,cumpleanos,clave,perfil) VALUES
-  ('@admin','admin@gmail.com','Administrador','1980-10-10',MD5('1234'),'Admin'),
-  ('@usuario','usuario@gmail.com','Usuario','1990-11-11',MD5('4321'),'User');
+INSERT INTO t_Usuarios (usuario,email,nombre,cumpleanos,clave,perfil,id_rol) VALUES
+  ('@admin','admin@gmail.com','Administrador','1980-10-10',MD5('1234'),'Admin',1),
+  ('@usuario','usuario@gmail.com','Usuario','1990-11-11',MD5('4321'),'User',2);
 
 INSERT INTO t_Refaccion (id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,observaciones) VALUES
   (1,'Panel Board Control','40X9245',1,'2019-10-10',1,1,'Caja doblada'),
