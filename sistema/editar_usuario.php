@@ -5,7 +5,7 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) ||  empty($_POST['rol']))  
+    if(empty($_POST['nombre']) || empty($_POST['email']) || empty($_POST['usuario']) || empty($_POST['rol']) || empty($_POST['cumpleanos']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
@@ -13,28 +13,38 @@
     {  
       $idusuario = $_POST['idusuario'];        
       $nombre = $_POST['nombre'];
-      $correo = $_POST['correo'];
+      $correo = $_POST['email'];
       $usuario = $_POST['usuario'];
+      $cumpleanos = $_POST['cumpleanos'];
       $clave = MD5($_POST['clave']);
       $rol = $_POST['rol'];
 
       //echo "SELECT * FROM usuario WHERE (usuario = '$usuario' AND idusuario != $idusuario) OR (correo = '$correo' AND idusuario != $idusuario)";
       //exit;
 
-      // Verificar si existe correo y usuario 
-      $query = mysqli_query($conection,"SELECT * FROM usuario WHERE (usuario = '$usuario' AND idusuario != $idusuario) OR (correo = '$correo' AND idusuario != $idusuario)");
+      // Verificar si existe correo y usuario
+
+      //$query = mysqli_query($conection,"SELECT * FROM usuario WHERE (usuario = '$usuario' AND idusuario != $idusuario) OR (correo = '$correo' AND idusuario != $idusuario)");
+       //$result = mysqli_fetch_array($query);
+
+       $conectar = new Conexion();        
+       $conectar->query = "SELECT * FROM t_Usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
+       $conectar->get_query();       
  
-      $result = mysqli_fetch_array($query);
-      if ($result > 0)
-      {
-        $alert = '<p class="msg_error">El correo o el usuario ya existe</p>';
-      }
-      else
-      {
+       if (!empty($conectar->rows))
+       {
+         $alert = '<p class="msg_error">El correo o el usuario ya existe</p>';
+       }
+       else
+       {
         // Cuando el usuario no actualiza la clave.
         if (empty($_POST['clave']))
         {
-          $sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol' WHERE idusuario = $idusuario");
+          //$sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol' WHERE idusuario = $idusuario");
+
+          $consultar = new Conexion();        
+          $consultar->query = "UPDATE t_Usuario SET nombre = '$nombre', email = '$correo', usuario = '$usuario', id_rol = '$rol', '$usuario', cumpleanos = '$cumpleanos' WHERE idusuario = $idusuario";
+          $consultar->set_query();       
 
         }
         else
@@ -42,19 +52,28 @@
           $sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol clave = '$clave' WHERE idusuario = $idusuario");
         }
 
-        if ($sql_update)
+        if ($consultar == 1)
         {
-          $alert = '<p class="msg_save">Usuario Actualizado Correctamente</p>';          
+          $alert = '<p class="msg_save">Usuario Actualizado correctamente</p>';
         }
         else
         {
           $alert = '<p class="msg_error">Error Al Actualizar El Usuario</p>';
         }
-      }
 
-    }
+      } // if (!empty($conectar->rows))
+
+    } // if(empty($_POST['nombre']) || empty($_POST['email']) || empty($_POST
+
+  } // if (!empty($_POST))
+
+
+
+  /////////////////////////////////////////////////////////////
+  // Continuar ...
+  //////////////////////////////////////////
+
   
-  }
   // Si no existe el "id" que se mando atráves de la URL, regresa al listado de usuario. 
   if (empty($_GET['id']))
   {

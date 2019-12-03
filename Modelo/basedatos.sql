@@ -118,12 +118,14 @@ ALTER TABLE `cliente`
 
 CREATE TABLE t_Usuarios
 (
-  usuario VARCHAR(15) PRIMARY KEY,
+  idusuario INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  usuario VARCHAR(15) NOT NULL,
   email VARCHAR(80) UNIQUE NOT NULL, /* Evalua que sea único en esta tabla. */
   nombre  VARCHAR(100) NOT NULL,
   cumpleanos DATE NOT NULL,
   clave CHAR(32) NOT NULL, /* Encriptar en MySQL con MD5, requiere 32 posiciones */
   perfil ENUM ('Admin','User') NOT NULL,
+  estatus CHAR(1) NOT NULL DEFAULT 1, 
   id_rol INTEGER UNSIGNED NOT NULL,
   FOREIGN KEY(id_rol) REFERENCES t_Rol(id_rol)
     ON DELETE RESTRICT ON UPDATE CASCADE

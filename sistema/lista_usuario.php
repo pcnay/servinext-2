@@ -17,44 +17,58 @@
 		<h1>LISTA DE USUARIOS</h1>
     <a href="registro_usuario.php" class="btn_new">Crear Usuario</a>
     <table>
-      <tr>
-        <th>ID</th>
+      <tr>        
+        <th>ID</th>      
         <th>NOMBRE</th>
         <th>CORREO</th>
         <th>USUARIO</th>
-        <th>ROL</th>
+        <th>CUMPLEAÑOS</th>
+        <th>PERFIL</th>
         <th>ACCIONES</th>        
       </tr>
 
       <?php
-        $query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
-        $result = mysqli_num_rows($query);
-        if ($result >0)
+        //$query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
+        $consulta = new Conexion();
+        $consulta->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,u.id_rol,r.rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.estatus = '1'";
+        $consulta->get_query();       
+  
+        if (!empty($consulta->rows))        
         {
-          while ($data = mysqli_fetch_array($query))
+          $datos2 = array();
+          foreach ($consulta->rows as $nombreCampo => $contenidoCampo)
+          {
+            // Agrega al final del arreglo una nueva posicion.
+            array_push($datos2,$contenidoCampo);
+            // La otra forma:
+            // $datos[$nombreCampo] = $contenidoCampo;  
+          }  
+        
+          for ($n=0;$n<count($datos2);$n++)
           {
        ?>
             <tr>
-              <td><?php echo $data['idusuario']; ?></td>
-              <td><?php echo $data['nombre']; ?></td>
-              <td><?php echo $data['correo']; ?></td>
-              <td><?php echo $data['usuario']; ?></td>
-              <td><?php echo $data['rol']; ?></td>
+              <td><?php echo $datos2[$n]['idusuario']; ?></td>
+              <td><?php echo $datos2[$n]['nombre']; ?></td>
+              <td><?php echo $datos2[$n]['email']; ?></td>
+              <td><?php echo $datos2[$n]['usuario']; ?></td>
+              <td><?php echo $datos2[$n]['cumpleanos']; ?></td>
+              <td><?php echo $datos2[$n]['rol']; ?></td>
               <td>
                 <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
-                <a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
+                <a class="link_edit" href="editar_usuario.php?id=<?php echo $datos2[$n]['idusuario']; ?>">Editar</a>
                 
                 <!-- NO permite borrar al Usuario Administrador principal. -->
-                <?php if ($data['idusuario'] != 1) { ?>
+                <?php if ($datos2[$n]['idusuario'] != 1) { ?>
                     |              
-                    <a class="link_delete" href="eliminar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
+                    <a class="link_delete" href="eliminar_usuario.php?id=<?php echo $datos2[$n]['idusuario']; ?>">Eliminar</a>
                 <?php } ?>
               </td>
             </tr>
       <?php      
-          } // if ($result >0)
+        } // if (!empty($conectar->rows))
 
-        } // while ($data = mysqli_fetch_array($query))
+          } // for ($n=0;$n<count($datos2);$n++)
       ?>
 
     </table>
