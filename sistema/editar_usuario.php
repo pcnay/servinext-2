@@ -81,15 +81,22 @@
   }
   // Validar que el "id" existe en la base de datos.
   $iduser = $_GET['id'];
-  $sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
 
-  $result_sql = mysqli_num_rows($sql);
-  if ($result_sql == 0)
+
+  $conectar = new Conexion();
+  $conectar->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,(u.id_rol) as idrol, (r.rol) as rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario = $iduser ";
+  $conectar->get_query();
+
+
+  //$sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
+
+  if (empty($conectar->rows))
   {
     header ('Location:lista_usuario.php');
-  }
+  }  
   else
   {
+    /*
     // mysqli_fetch_array($sql) , le asigna un arreglo a $data lo encontrando en la consulta.
     $option = '';
     while ($data = mysqli_fetch_array($sql))
@@ -117,11 +124,44 @@
       }
 
     }
+    */
+    $datos2 = array();
+    foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
+    {
+      // Agrega al final del arreglo una nueva posicion.
+      array_push($datos2,$contenidoCampo);
+      // La otra forma:
+      // $datos[$nombreCampo] = $contenidoCampo;        
+    }
+    
+    for ($n=0;$n<count($datos2);$n++)
+    {                  
+      $idusuario = $datos2[$n]['idusuario'];
+      $nombre = $datos2[$n]['nombre'];
+      $correo = $datos2[$n]['correo'];
+      $usuario = $datos2[$n]['usuario'];
+      $cumpleanos = $datos2[$n]['cumpleanos'];
+      $idrol = $datos2[$n]['idrol'];
+      $rol = $datos2[$n]['rol'];
 
+      if ($idrol == 1)
+      {
+        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+      }
+      // "select" para que se seleccione, dependiendo de la opcion.
+      else if ($idrol == 2)      
+      {
+        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+      }
+      // "select" para que se seleccione, dependiendo de la opcion.
+      else if ($idrol == 3)      
+      {
+        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+      }
 
-  } // if ($result_sql == 0)
+    } // for ($n=0;$n<count($datos2);$n++)
 
-
+  } // if (empty($conectar->rows))
 
 ?>
 
@@ -152,34 +192,51 @@
         <label for="correo">Correo Electrónico</label>
         <input type="email" name="correo" id = "correo" placeholder="Correo Electrónico" value = "<?php echo $correo ?>">
         <label for="usuario">Usuario</label>
-        <input type="text" name="usuario" id = "usuario" placeholder="Usuario" value = "<?php echo $usuario ?>">
+        <input type="text" name="usuario" id = "usuario" placeholder="Usuario" 
+        value = "<?php echo $usuario ?>">
+        <label for="cumpleanos">Cumpleanos</label>
+        <input type="text" name="cumpleanos" id = "cumpleanos" placeholder="Fecha Cumpleanos AAAA-MM-DD" 
+        value = "<?php echo $cumpleanos ?>">
+
         <label for="clave">Clave</label>
         <input type="password" name="clave" id = "clave" placeholder="Clave de Acceso">
         <label for="rol">Tipo Usuario</label>
 
-        <?php 
-          $query_rol = mysqli_query($conection,"SELECT * FROM rol");
-          $result_rol = mysqli_num_rows($query_rol);
-        ?>
+        <?php         
+          // $query_rol = mysqli_query($conection,"SELECT * FROM rol");
+          // $result_rol = mysqli_num_rows($query_rol);
+          $conectar = new Conexion();        
+          $conectar->query = "SELECT * FROM t_Rol";
+          $conectar->get_query();       
 
-        <!-- class="notitem" para que no se muestre duplicado en el combobox-->
+        ?>
         <select name="rol" id="rol" class="notitemOne">
           <?php 
           //print ($result_rol);
           //exit;
-          echo $option;
 
-            if ($result_rol >0)
+            if (!empty($conectar->rows))
             {
-              while ($rol = mysqli_fetch_array($query_rol))
-              {
+               //while ($rol = mysqli_fetch_array($query_rol))
+              //{
+                $datos2 = array();
+                foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
+                {
+                  // Agrega al final del arreglo una nueva posicion.
+                  array_push($datos2,$contenidoCampo);
+                  // La otra forma:
+                  // $datos[$nombreCampo] = $contenidoCampo;        
+                }
+                
+                for ($n=0;$n<count($datos2);$n++)
+                {                  
           ?>
-                <!-- <option value="2">Supervisor</option> -->
-                <option value="<?php echo $rol['idrol'];?>"><?php echo $rol['rol']; ?></option>
+                  <option value="<?php echo $datos2[$n]['id_rol'];?>"><?php echo $datos2[$n]['rol']; ?></option>
+                <!-- <option value="2">Supervisor</option> -->               
           <?php 
-              } // while ($rol = mysqli_fetch_array($query_rol)) 
+              } // for ($n=0;$n<count($datos2);$n++)
 
-            } // if ($result_rol >0)
+            } // if (!empty($conectar->rows))
 
           ?>
           
