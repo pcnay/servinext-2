@@ -5,7 +5,7 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['nombre']) || empty($_POST['email']) || empty($_POST['usuario']) || empty($_POST['rol']) || empty($_POST['cumpleanos']))  
+    if(empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['rol']) || empty($_POST['cumpleanos']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
@@ -13,7 +13,7 @@
     {  
       $idusuario = $_POST['idusuario'];        
       $nombre = $_POST['nombre'];
-      $correo = $_POST['email'];
+      $correo = $_POST['correo'];
       $usuario = $_POST['usuario'];
       $cumpleanos = $_POST['cumpleanos'];
       $clave = MD5($_POST['clave']);
@@ -43,16 +43,26 @@
           //$sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol' WHERE idusuario = $idusuario");
 
           $consultar = new Conexion();        
-          $consultar->query = "UPDATE t_Usuario SET nombre = '$nombre', email = '$correo', usuario = '$usuario', id_rol = '$rol', '$usuario', cumpleanos = '$cumpleanos' WHERE idusuario = $idusuario";
+          $consultar->query = "UPDATE t_Usuarios SET nombre = '$nombre', email = '$correo', usuario = '$usuario', id_rol = '$rol', cumpleanos = '$cumpleanos' WHERE idusuario = $idusuario";
+          //print_r ($consultar->query);
+          //exit;
+
           $consultar->set_query();       
 
         }
         else
         {
-          $sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol clave = '$clave' WHERE idusuario = $idusuario");
+          $consultar = new Conexion();        
+          $consultar->query = "UPDATE t_Usuarios SET nombre = '$nombre', email = '$correo', usuario = '$usuario', id_rol = '$rol', clave = '$clave', cumpleanos = '$cumpleanos' WHERE idusuario = $idusuario";
+          //print_r ($consultar->query);
+          //exit;
+
+          $consultar->set_query();       
+
+          //$sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol clave = '$clave' WHERE idusuario = $idusuario");
         }
 
-        if ($consultar == 1)
+        if ($consultar == true)
         {
           $alert = '<p class="msg_save">Usuario Actualizado correctamente</p>';
         }
@@ -67,101 +77,97 @@
 
   } // if (!empty($_POST))
 
-
-
-  /////////////////////////////////////////////////////////////
-  // Continuar ...
-  //////////////////////////////////////////
-
-  
   // Si no existe el "id" que se mando atráves de la URL, regresa al listado de usuario. 
   if (empty($_GET['id']))
   {
     header ('Location:lista_usuario.php');
   }
-  // Validar que el "id" existe en la base de datos.
-  $iduser = $_GET['id'];
-
-
-  $conectar = new Conexion();
-  $conectar->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,(u.id_rol) as idrol, (r.rol) as rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario = $iduser ";
-  $conectar->get_query();
-
-
-  //$sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
-
-  if (empty($conectar->rows))
-  {
-    header ('Location:lista_usuario.php');
-  }  
   else
   {
-    /*
-    // mysqli_fetch_array($sql) , le asigna un arreglo a $data lo encontrando en la consulta.
-    $option = '';
-    while ($data = mysqli_fetch_array($sql))
+    // Validar que el "id" existe en la base de datos.
+    $iduser = $_GET['id'];
+    $conectar = new Conexion();
+    $conectar->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,(u.id_rol) as idrol, (r.rol) as rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario = $iduser ";
+    $conectar->get_query();
+
+
+    //$sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
+
+    if (empty($conectar->rows))
     {
-      $idusuario = $data['idusuario'];
-      $nombre = $data['nombre'];
-      $correo = $data['correo'];
-      $usuario = $data['usuario'];
-      $idrol = $data['idrol'];
-      $rol = $data['rol'];
-      // "select" para que se seleccione, dependiendo de la opcion.
-      if ($idrol == 1)
-      {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
-      // "select" para que se seleccione, dependiendo de la opcion.
-      else if ($idrol == 2)      
-      {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
-      // "select" para que se seleccione, dependiendo de la opcion.
-      else if ($idrol == 3)      
-      {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
-
-    }
-    */
-    $datos2 = array();
-    foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
+      header ('Location:lista_usuario.php');
+    }  
+    else
     {
-      // Agrega al final del arreglo una nueva posicion.
-      array_push($datos2,$contenidoCampo);
-      // La otra forma:
-      // $datos[$nombreCampo] = $contenidoCampo;        
-    }
-    
-    for ($n=0;$n<count($datos2);$n++)
-    {                  
-      $idusuario = $datos2[$n]['idusuario'];
-      $nombre = $datos2[$n]['nombre'];
-      $correo = $datos2[$n]['correo'];
-      $usuario = $datos2[$n]['usuario'];
-      $cumpleanos = $datos2[$n]['cumpleanos'];
-      $idrol = $datos2[$n]['idrol'];
-      $rol = $datos2[$n]['rol'];
-
-      if ($idrol == 1)
+      /*
+      // mysqli_fetch_array($sql) , le asigna un arreglo a $data lo encontrando en la consulta.
+      $option = '';
+      while ($data = mysqli_fetch_array($sql))
       {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
-      // "select" para que se seleccione, dependiendo de la opcion.
-      else if ($idrol == 2)      
-      {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
-      // "select" para que se seleccione, dependiendo de la opcion.
-      else if ($idrol == 3)      
-      {
-        $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
-      }
+        $idusuario = $data['idusuario'];
+        $nombre = $data['nombre'];
+        $correo = $data['correo'];
+        $usuario = $data['usuario'];
+        $idrol = $data['idrol'];
+        $rol = $data['rol'];
+        // "select" para que se seleccione, dependiendo de la opcion.
+        if ($idrol == 1)
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
+        // "select" para que se seleccione, dependiendo de la opcion.
+        else if ($idrol == 2)      
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
+        // "select" para que se seleccione, dependiendo de la opcion.
+        else if ($idrol == 3)      
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
 
-    } // for ($n=0;$n<count($datos2);$n++)
+      }
+      */
+      $datos2 = array();
+      foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
+      {
+        // Agrega al final del arreglo una nueva posicion.
+        array_push($datos2,$contenidoCampo);
+        // La otra forma:
+        // $datos[$nombreCampo] = $contenidoCampo;        
+      }
+      
+      for ($n=0;$n<count($datos2);$n++)
+      {                  
+        $idusuario = $datos2[$n]['idusuario'];
+        $nombre = $datos2[$n]['nombre'];
+        $correo = $datos2[$n]['email'];
+        $usuario = $datos2[$n]['usuario'];
+        $cumpleanos = $datos2[$n]['cumpleanos'];
+        $idrol = $datos2[$n]['idrol'];
+        $rol = $datos2[$n]['rol'];
 
-  } // if (empty($conectar->rows))
+        if ($idrol == 1)
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
+        // "select" para que se seleccione, dependiendo de la opcion.
+        else if ($idrol == 2)      
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
+        // "select" para que se seleccione, dependiendo de la opcion.
+        else if ($idrol == 3)      
+        {
+          $option = '<option value="'.$idrol.'" select >'.$rol.'</option> ';
+        }
+
+
+      } // for ($n=0;$n<count($datos2);$n++)
+
+    } // if (empty($conectar->rows))
+
+  } // if (empty($_GET['id']))
 
 ?>
 
@@ -195,7 +201,7 @@
         <input type="text" name="usuario" id = "usuario" placeholder="Usuario" 
         value = "<?php echo $usuario ?>">
         <label for="cumpleanos">Cumpleanos</label>
-        <input type="text" name="cumpleanos" id = "cumpleanos" placeholder="Fecha Cumpleanos AAAA-MM-DD" 
+        <input type="text" name="cumpleanos" id = "cumpleanos" placeholder="AAAA-MM-DD" 
         value = "<?php echo $cumpleanos ?>">
 
         <label for="clave">Clave</label>
@@ -214,6 +220,7 @@
           <?php 
           //print ($result_rol);
           //exit;
+          echo $option;
 
             if (!empty($conectar->rows))
             {
@@ -229,10 +236,11 @@
                 }
                 
                 for ($n=0;$n<count($datos2);$n++)
-                {                  
+                {                              
           ?>
-                  <option value="<?php echo $datos2[$n]['id_rol'];?>"><?php echo $datos2[$n]['rol']; ?></option>
-                <!-- <option value="2">Supervisor</option> -->               
+                <!-- <option value="2">Supervisor</option> -->
+                <option value="<?php echo $datos2[$n]['id_rol'];?>"><?php echo $datos2[$n]['rol']; ?></option>
+
           <?php 
               } // for ($n=0;$n<count($datos2);$n++)
 

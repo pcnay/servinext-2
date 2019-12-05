@@ -6,9 +6,12 @@
   {
     $idusuario = $_POST['idusuario'];
     //$query_delete = mysqli_query($conection,"DELETE FROM usuario  WHERE idusuario=$idusuario");
-    $query_delete = mysqli_query($conection,"UPDATE usuario SET estatus = 0 WHERE idusuario = $idusuario");
+    $consulta = new Conexion();
+    $consulta->query = "UPDATE t_Usuarios SET estatus = '0' WHERE idusuario = $idusuario";
+    
+    $realizado = $consulta->set_query();       
 
-    if ($query_delete)
+    if ($realizado == true)
     {
       header ("location:lista_usuario.php");          
     }
@@ -25,27 +28,44 @@
     header ("location:lista_usuario.php");    
   }
   else
-  {
-    
+  {    
     $idusuario = $_REQUEST['id'];
-    $query = mysqli_query($conection,"SELECT u.nombre,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario=$idusuario");
-    $result = mysqli_num_rows($query);
-    if ($result > 0)
-    {
-      while ($data = mysqli_fetch_array($query))
-      {
-        $nombre = $data['nombre'];
-        $usuario = $data['usuario'];
-        $rol = $data['rol'];
-      }
+    
+    $consulta = new Conexion();
+    $consulta->query = "SELECT u.nombre,u.usuario,r.rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario=$idusuario";
 
+    // "SELECT u.nombre,u.usuario,r.rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario=$idusuario"
+
+    //print_r($consulta->query);
+    //exit;
+    
+    $consulta->get_query();       
+    //var_dump ($consulta->rows);
+    //exit;
+    
+    if (!empty($consulta->rows))
+    {
+      
+      $datos2 = array();
+      foreach ($consulta->rows as $nombreCampo => $contenidoCampo)
+      {
+        // Agrega al final del arreglo una nueva posicion.
+        array_push($datos2,$contenidoCampo);
+        // La otra forma:
+        // $datos[$nombreCampo] = $contenidoCampo;  
+      }  
+    
+      for ($n=0;$n<count($datos2);$n++)
+      {
+        $nombre = $datos2[$n]['nombre'];
+        $usuario = $datos2[$n]['usuario'];
+        $rol = $datos2[$n]['rol'];
+      }
     }
     else
     {
       header("location:lista_usuario.php");
     }
-
-
   }
 ?>
 
