@@ -29,9 +29,9 @@
 
        $conectar = new Conexion();        
        $conectar->query = "SELECT * FROM t_Usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
-       $conectar->get_query();       
+       $Consulta = $conectar->get_query();       
  
-       if (!empty($conectar->rows))
+       if (!empty($Consulta)) // $conectar->rows))
        {
          $alert = '<p class="msg_error">El correo o el usuario ya existe</p>';
        }
@@ -62,7 +62,7 @@
           //$sql_update = mysqli_query($conection,"UPDATE usuario SET nombre = '$nombre', correo = '$correo', usuario = '$usuario', rol = '$rol clave = '$clave' WHERE idusuario = $idusuario");
         }
 
-        if ($consultar == true)
+        if ($consultar == true || $consultar == 1)
         {
           $alert = '<p class="msg_save">Usuario Actualizado correctamente</p>';
         }
@@ -88,12 +88,12 @@
     $iduser = $_GET['id'];
     $conectar = new Conexion();
     $conectar->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,(u.id_rol) as idrol, (r.rol) as rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.idusuario = $iduser ";
-    $conectar->get_query();
+    $datos2 = $conectar->get_query();
 
 
     //$sql = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario, (u.rol) as idrol, (r.rol) as rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $iduser ");
 
-    if (empty($conectar->rows))
+    if (empty($datos2)) //$conectar->rows))
     {
       header ('Location:lista_usuario.php');
     }  
@@ -128,6 +128,7 @@
 
       }
       */
+      /*
       $datos2 = array();
       foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
       {
@@ -136,7 +137,8 @@
         // La otra forma:
         // $datos[$nombreCampo] = $contenidoCampo;        
       }
-      
+      */
+
       for ($n=0;$n<count($datos2);$n++)
       {                  
         $idusuario = $datos2[$n]['idusuario'];
@@ -213,7 +215,7 @@
           // $result_rol = mysqli_num_rows($query_rol);
           $conectar = new Conexion();        
           $conectar->query = "SELECT * FROM t_Rol";
-          $conectar->get_query();       
+          $datos2 = $conectar->get_query();       
 
         ?>
         <select name="rol" id="rol" class="notitemOne">
@@ -222,10 +224,11 @@
           //exit;
           echo $option;
 
-            if (!empty($conectar->rows))
+            if (!empty($datos2)) //$conectar->rows))
             {
                //while ($rol = mysqli_fetch_array($query_rol))
               //{
+                /*
                 $datos2 = array();
                 foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
                 {
@@ -234,6 +237,7 @@
                   // La otra forma:
                   // $datos[$nombreCampo] = $contenidoCampo;        
                 }
+              */
                 
                 for ($n=0;$n<count($datos2);$n++)
                 {                              

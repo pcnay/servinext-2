@@ -67,7 +67,23 @@
       // array_pop =  se utiliza para suprimir el último valor del arreglo, ya que siempre es NULL.
       // http://php.net/manual/es/function.array-pop.php
       //var_dump ($this->rows);
-      return array_pop($this->rows);
+
+      array_pop($this->rows);
+      $datos2 = array();
+
+      if (!empty($this->rows))        
+      {
+        
+        foreach ($this->rows as $nombreCampo => $contenidoCampo)
+        {
+          // Agrega al final del arreglo una nueva posicion.
+          array_push($datos2,$contenidoCampo);
+          // La otra forma:
+          // $datos[$nombreCampo] = $contenidoCampo;  
+        }  
+      }
+
+      return $datos2; //array_pop($this->rows);
     }
 
 

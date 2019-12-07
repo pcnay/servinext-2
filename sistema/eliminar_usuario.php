@@ -4,6 +4,13 @@
   // Para borrar el usuario.
   if (!empty($_POST))
   {
+    // Si cambian el valor desde "Inspeccionar elemento".
+    if ($_POST['idusuario'] == 1)
+    {
+      header ("location:lista_usuario.php");
+      exit;
+    }
+    
     $idusuario = $_POST['idusuario'];
     //$query_delete = mysqli_query($conection,"DELETE FROM usuario  WHERE idusuario=$idusuario");
     $consulta = new Conexion();
@@ -11,7 +18,7 @@
     
     $realizado = $consulta->set_query();       
 
-    if ($realizado == true)
+    if ($realizado == true || $realizado == 1)
     {
       header ("location:lista_usuario.php");          
     }
@@ -39,13 +46,13 @@
     //print_r($consulta->query);
     //exit;
     
-    $consulta->get_query();       
+    $datos2 = $consulta->get_query();       
     //var_dump ($consulta->rows);
     //exit;
     
     if (!empty($consulta->rows))
     {
-      
+      /*      
       $datos2 = array();
       foreach ($consulta->rows as $nombreCampo => $contenidoCampo)
       {
@@ -54,7 +61,8 @@
         // La otra forma:
         // $datos[$nombreCampo] = $contenidoCampo;  
       }  
-    
+      */
+      
       for ($n=0;$n<count($datos2);$n++)
       {
         $nombre = $datos2[$n]['nombre'];

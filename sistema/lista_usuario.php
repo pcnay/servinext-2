@@ -31,8 +31,8 @@
         //$query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
         $consulta = new Conexion();
         $consulta->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,u.id_rol,r.rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.estatus = '1'";
-        $consulta->get_query();       
-  
+        //$consulta->get_query();       
+  /*
         if (!empty($consulta->rows))        
         {
           $datos2 = array();
@@ -43,6 +43,10 @@
             // La otra forma:
             // $datos[$nombreCampo] = $contenidoCampo;  
           }  
+*/
+
+          $datos2 = $consulta->get_query();
+
         
           for ($n=0;$n<count($datos2);$n++)
           {
@@ -68,10 +72,25 @@
       <?php      
         } // if (!empty($conectar->rows))
 
-          } // for ($n=0;$n<count($datos2);$n++)
+         // } // for ($n=0;$n<count($datos2);$n++)
       ?>
 
     </table>
+
+    <!-- Es la sección de Páginador. -->
+    <div class="paginador">
+      <ul>
+        <li><a href="#">|<</a></li>
+        <li><a href="#"><<</a></li>
+        <li class="pageSelected" >1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">>></a></li>
+        <li><a href="#">>|</a></li>
+      </ul>
+    </div>
 
 	</section>
 	

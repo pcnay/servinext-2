@@ -23,9 +23,14 @@
       // $result = mysqli_fetch_array($query);
       $conectar = new Conexion();        
       $conectar->query = "SELECT * FROM t_Usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
-      $conectar->get_query();       
+       //print_r($conectar->query);      
+      
+      $datos = $conectar->get_query();
 
-      if (!empty($conectar->rows))
+      //var_dump($datos); // $conectar->query);
+      //exit;
+      
+      if (!empty($datos))
       {
         $alert = '<p class="msg_error">El correo o el usuario ya existe</p>';
       }
@@ -35,10 +40,14 @@
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
         $consulta->query = "INSERT INTO t_Usuarios(usuario,email,nombre,cumpleanos,clave,id_rol) VALUES ('$usuario','$correo','$nombre','$cumpleanos','$clave','$rol')";
-        
+        //print_r ($consulta->query);
+
         $Consulta = $consulta->set_query();        
         
-        if ($Consulta == 1)
+        //print_r ($Consulta);
+        //exit;
+
+        if ($Consulta == true || $Consulta == 1)
         {
           $alert = '<p class="msg_save">Usuario creado correctamente</p>'; 
         }
@@ -90,7 +99,7 @@
           // $result_rol = mysqli_num_rows($query_rol);
           $conectar = new Conexion();        
           $conectar->query = "SELECT * FROM t_Rol";
-          $conectar->get_query();       
+          $datos2 = $conectar->get_query();       
 
         ?>
         <select name="rol" id="rol">
@@ -98,29 +107,17 @@
           //print ($result_rol);
           //exit;
 
-            if (!empty($conectar->rows))
+            if (!empty($datos2)) // $conectar->rows))
             {
-               //while ($rol = mysqli_fetch_array($query_rol))
-              //{
-                $datos2 = array();
-                foreach ($conectar->rows as $nombreCampo => $contenidoCampo)
-                {
-                  // Agrega al final del arreglo una nueva posicion.
-                  array_push($datos2,$contenidoCampo);
-                  // La otra forma:
-                  // $datos[$nombreCampo] = $contenidoCampo;        
-                }
-                
-                for ($n=0;$n<count($datos2);$n++)
-                {                  
+              for ($n=0;$n<count($datos2);$n++)
+              {                  
           ?>
                   <option value="<?php echo $datos2[$n]['id_rol'];?>"><?php echo $datos2[$n]['rol']; ?></option>
                 <!-- <option value="2">Supervisor</option> -->               
           <?php 
-              } // for ($n=0;$n<count($datos2);$n++)
+                } // for ($n=0;$n<count($datos2);$n++)
 
-            } // if (!empty($conectar->rows))
-
+            } // if (!empty($datos2))
           ?>
           
         </select>
