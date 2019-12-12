@@ -63,6 +63,7 @@
           $_SESSION['nombre'] = $datos2[0]['nombre'];
           $_SESSION['email'] = $datos2[0]['email'];
           $_SESSION['usuario'] = $datos2[0]['usuario'];
+          $_SESSION['id_rol'] = $datos2[0]['id_rol'];
 
           header('location: sistema/');
         }
