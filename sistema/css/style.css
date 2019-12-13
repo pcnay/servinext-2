@@ -252,8 +252,19 @@ input, select
 /* El boton para agregar usuarios */
 .btn_new
 {
-	display:inlien-block;
+	display:inline-block;
 	background:#239baa;
+	color:#FFF;
+	padding:5px 25px;
+	border-radius:4px;
+	margin:20px;
+}
+
+/* El boton para imprimir usuarios */
+.btn_reporte
+{
+	display:inline-block;
+	background:#7a7c78;
 	color:#FFF;
 	padding:5px 25px;
 	border-radius:4px;

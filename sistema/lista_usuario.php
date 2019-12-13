@@ -1,6 +1,21 @@
 <?php
-  session_start();
-  if ($_SESSION['rol'] != 1)
+    session_start([
+      "use_only_cookies" => 1,
+      //x Este valor es solo modificable en ".htaccess, httpd.conf,user.ini
+      // No tine sentido en tiempo de ejecución decirle a PHP que autinicie sesion
+      // a la vez que inicias session.
+      "auto_start", // <=======
+      "read_and_close" => false // La sesion se cierre automaticamente.
+                                // Si se coloca a "true" no funciona la variable Global 
+                                // $_SESSION['ok'],
+      /* Valores originales, pero no funciona en PHP Ver 7 
+      "use_only_cookies" => 1,
+      "auto_start" => 1,
+      "read_and_close" => true
+      */
+    ]); 
+  
+  if ($_SESSION['id_rol'] != 1)
   {
     header ("location: ./");
   }
@@ -22,6 +37,7 @@
 	<section id="container">
 		<h1>LISTA DE USUARIOS</h1>
     <a href="registro_usuario.php" class="btn_new">Crear Usuario</a>
+    <a href="reporte-usuario.php" class="btn_reporte">Reporte Usuarios</a>
 
     <!-- Sección para Buscar usuarios -->
     <form action="buscar_usuario.php" method="get" class="form_search">
