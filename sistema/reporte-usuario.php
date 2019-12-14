@@ -19,14 +19,15 @@
   
       $this->SetFont('Arial','B',12);
       $this->Cell(60);
-      $this->Cell(70,10,'REPORTE DE USUARIOS',0,0,'C');
+      // Este valor "135" es para centrar, independiente del texto escrito
+      $this->Cell(135,10,'REPORTE',0,0,'C');
       $this->Ln(20);
-      $this->Cell(10,5,'ID USUARIO',1,0,'C',0);
-      $this->Cell(20,5,'USUARIO',1,0,'C',0);
-      $this->Cell(30,5,'EMAIL',1,0,'C',0);
-      $this->Cell(50,5,'NOMBRE',1,0,'C',0);
-      $this->Cell(15,5,'FECHA NAC',1,0,'C',0); // 1,1 = Salto de Linea
-      $this->Cell(10,5,'ROL',1,0,'C',0); // 1,1 = Salto de Linea
+      $this->Cell(10,5,'ID',1,0,'C',0);
+      $this->Cell(30,5,'USUARIO',1,0,'C',0);
+      $this->Cell(70,5,'EMAIL',1,0,'C',0);
+      $this->Cell(90,5,'NOMBRE',1,0,'C',0);
+      $this->Cell(30,5,'FECHA NAC',1,0,'C',0); // 1,1 = Salto de Linea
+      $this->Cell(30,5,'ROL',1,1,'C',0); // 1,1 = Salto de Linea
     }
     function Footer()
     {
@@ -38,7 +39,7 @@
   }
 
 
-  
+  // 'L' = Horizontal(Acostada), 'P' = Vertical (Normal)
   // $pdf = new PDF('L','cm','Letter');
   $pdf = new PDF('L','mm','Letter');
   $pdf->AliasNbPages(); // Para determinar el número total de hojas.
@@ -61,12 +62,12 @@
   
   for ($n=0;$n<count($datos2);$n++)
   {
-    $pdf->Cell(80,5,$datos2[$n]['idusuario'],1,0,'L',0);
-    $pdf->Cell(20,5,$datos2[$n]['usuario'],1,0,'L',0);
-    $pdf->Cell(20,5,$datos2[$n]['email'],1,0,'L',0);
-    $pdf->Cell(8,5,$datos2[$n]['nombre'],1,0,'L',0);
-    $pdf->Cell(20,5,$datos2[$n]['cumpleanos'],1,0,'L',0);
-    $pdf->Cell(20,5,$datos2[$n]['rol'],1,1,'L',0);
+    $pdf->Cell(10,5,$datos2[$n]['idusuario'],1,0,'L',0);
+    $pdf->Cell(30,5,$datos2[$n]['usuario'],1,0,'L',0);
+    $pdf->Cell(70,5,$datos2[$n]['email'],1,0,'L',0);
+    $pdf->Cell(90,5,$datos2[$n]['nombre'],1,0,'L',0);
+    $pdf->Cell(30,5,$datos2[$n]['cumpleanos'],1,0,'L',0);
+    $pdf->Cell(30,5,$datos2[$n]['rol'],1,1,'L',0);
   }
 
   $pdf->Output();

@@ -37,7 +37,7 @@
 	<section id="container">
 		<h1>LISTA DE USUARIOS</h1>
     <a href="registro_usuario.php" class="btn_new">Crear Usuario</a>
-    <a href="reporte-usuario.php" class="btn_reporte">Reporte Usuarios</a>
+    <a href="reporte-usuario.php" target="_blank" class="btn_reporte">Reporte Usuarios</a>
 
     <!-- Sección para Buscar usuarios -->
     <form action="buscar_usuario.php" method="get" class="form_search">
