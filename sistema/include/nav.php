@@ -26,7 +26,7 @@
 					<a href="#">Refacciones</a>
 					<ul>
 						<li><a href="registro_marca.php">Nueva Marca</a></li>
-						<li><a href="lista_marca.php">Lista De Marca</a></li>
+						<li><a href="listar_marca.php">Lista De Marca</a></li>
 						<li><a href="registro_modelo.php">Nuevo Modelo</a></li>
 						<li><a href="lista_modelo.php">Lista De Modelo</a></li>
 						<li><a href="registro_tipo-comp.php">Nuevo Tipo Componente</a></li>
