@@ -29,7 +29,7 @@ if ($_SESSION['id_rol'] != 1)
 <head>
 	<meta charset="UTF-8">
 	<?php include "include/scripts.php"; ?>
-	<title>Lista De Marca</title>
+	<title>Lista De Modelo</title>
 </head>
 <body>
 	<?php include "include/header.php" ?>
@@ -41,16 +41,16 @@ if ($_SESSION['id_rol'] != 1)
       $busqueda = strtolower($_REQUEST['busqueda']);
       if (empty($busqueda))
       {
-        header ("location: listar_marca.php");
+        header ("location: listar_modelo.php");
       }
     ?>
 
-		<h1>LISTA DE MARCAS</h1>
-    <a href="registro_marca.php" class="btn_new">Capturar Marca</a>
-    <a href="reporte_marca.php" target="_blank" class="btn_reporte">Reporte Marca</a>
+		<h1>LISTA DE MODELO</h1>
+    <a href="registro_modelo.php" class="btn_new">Capturar Modelo</a>
+    <a href="reporte_modelo.php" target="_blank" class="btn_reporte">Reporte Modelo</a>
 
-    <!-- Sección para Buscar usuarios -->
-    <form action="buscar_marca.php" method="get" class="form_search">
+    <!-- Sección para Buscar Modelo -->
+    <form action="buscar_modelo.php" method="get" class="form_search">
       <input type="text" name ="busqueda" id = "busqueda" placeholder = "Buscar" value="<?php echo $busqueda; ?>" >
       <input type="submit" value="Buscar" class = "btn_search">
     </form>
@@ -58,7 +58,7 @@ if ($_SESSION['id_rol'] != 1)
     <table>
       <tr>        
         <th>ID</th>      
-        <th>MARCA</th>
+        <th>MODELO</th>
         <th>ACCIONES</th>        
       </tr>
 
@@ -71,7 +71,7 @@ if ($_SESSION['id_rol'] != 1)
 
 
         $conectar = new Conexion();
-        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Marca WHERE (id_marca LIKE '%$busqueda%' OR 
+        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Modelo WHERE (id_modelo LIKE '%$busqueda%' OR 
         descripcion LIKE '%$busqueda%')";
         
         //print_r ($conectar->query);
@@ -119,8 +119,8 @@ if ($_SESSION['id_rol'] != 1)
 */
 
           $consulta = new Conexion();
-          $consulta->query = "SELECT id_marca,descripcion FROM t_Marca WHERE 
-          id_marca LIKE '%$busqueda%' OR 
+          $consulta->query = "SELECT id_modelo,descripcion FROM t_Modelo WHERE 
+          id_modelo LIKE '%$busqueda%' OR 
           descripcion LIKE '%$busqueda%'
           ORDER BY descripcion ASC LIMIT $desde,$por_pagina";
           //print_r ($consulta->query);
@@ -132,13 +132,13 @@ if ($_SESSION['id_rol'] != 1)
           {
        ?>
             <tr>
-              <td><?php echo $datos2[$n]['id_marca']; ?></td>
+              <td><?php echo $datos2[$n]['id_modelo']; ?></td>
               <td><?php echo $datos2[$n]['descripcion']; ?></td>
               <td>
                 <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
-                <a class="link_edit" href="editar_marca.php?id=<?php echo $datos2[$n]['id_marca']; ?>">Editar</a>             
+                <a class="link_edit" href="editar_modelo.php?id=<?php echo $datos2[$n]['id_modelo']; ?>">Editar</a>             
                 |              
-                <a class="link_delete" href="eliminar_marca.php?id=<?php echo $datos2[$n]['id_marca']; ?>">Eliminar</a>
+                <a class="link_delete" href="eliminar_modelo.php?id=<?php echo $datos2[$n]['id_modelo']; ?>">Eliminar</a>
               </td>
             </tr>
       <?php      
