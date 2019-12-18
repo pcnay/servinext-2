@@ -31,7 +31,7 @@
 						<li><a href="listar_modelo.php">Lista De Modelo</a></li>
 						<li><a href="registro_tipocomp.php">Nuevo Tipo Componente</a></li>
 						<li><a href="listar_tipocomp.php">Lista Tipo Componente</a></li>
-						<li><a href="registro_refaccion.php">Nueva Refaccion</a></li>
+						<li><a href="registrar_refaccion.php">Nueva Refaccion</a></li>
 						<li><a href="lista_refaccion.php">Lista Refaccion</a></li>
 
 						<!-- 
