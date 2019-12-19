@@ -25,43 +25,26 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['usuario']) || empty($_POST['correo']) || empty($_POST['nombre']) || empty($_POST['cumpleanos']) || empty($_POST['rol']))  
+    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
     else
     {          
-      $usuario = $_POST['usuario'];
-      $correo = $_POST['correo'];
-      $nombre = $_POST['nombre'];
-      $cumpleanos = $_POST['cumpleanos'];
-      $clave = MD5($_POST['clave']);
-      $rol = $_POST['rol'];
+      $descripcion = $_POST['descripcion'];
+      $num_parte = $_POST['num_parte'];
+      $existencia = $_POST['existencia'];
+      $fecha = $_POST['fecha'];
+      $marca = $_POST['marca'];
+      $modelo = $_POST['modelo'];
+      $observaciones = $_POST['observaciones'];
 
-      // Verificar si existe correo y usuario 
-
-      //$query = mysqli_query($conection,"SELECT * FROM usuario WHERE usuario = '$usuario' OR correo = '$correo'");
-      // $result = mysqli_fetch_array($query);
-      $conectar = new Conexion();        
-      $conectar->query = "SELECT * FROM t_Usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
-       //print_r($conectar->query);      
-      
-      $datos = $conectar->get_query();
-
-      //var_dump($datos); // $conectar->query);
-      //exit;
-      
-      if (!empty($datos))
-      {
-        $alert = '<p class="msg_error">El correo o el usuario ya existe</p>';
-      }
-      else
-      {
 
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
-        $consulta->query = "INSERT INTO t_Usuarios(usuario,email,nombre,cumpleanos,clave,id_rol) VALUES ('$usuario','$correo','$nombre','$cumpleanos','$clave','$rol')";
+        $consulta->query = "INSERT INTO t_Refaccion(id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,observaciones) VALUES (0,'$descripcion','$num_parte',$existencia,'$fecha',$marca,$modelo,'$observaciones')";
         //print_r ($consulta->query);
+        //exit;
 
         $Consulta = $consulta->set_query();        
         
@@ -70,18 +53,15 @@
 
         if ($Consulta == true || $Consulta == 1)
         {
-          $alert = '<p class="msg_save">Usuario creado correctamente</p>'; 
+          $alert = '<p class="msg_save">Refacción Capturada correctamente</p>'; 
         }
         else
         {
-          $alert = '<p class="msg_error">Error Al Crear El Usuario</p>';
-        }        
+          $alert = '<p class="msg_error">Error Al Capturar La Refacción</p>';
+        }             
+    } // if(empty($_POST['descripcion']) || ...
 
-      }
-
-    }
-
-  }
+  } // if (!empty($_POST))
 
 ?>
 
@@ -105,8 +85,7 @@
       <!-- Con "action" vacio se autoprocesara el formulario, es decir se iniciara desde el incio del archivo cuando se oprime el boton "Crear Usuario" -->
       <form action ="" method="post">
         <label for="descripcion">Descripcion</label>
-        <input type="text" name="descripcion" id = "descripcion" placeholder="Descripcion">
-         
+        <input type="text" name="descripcion" id = "descripcion" placeholder="Descripcion">         
         <label for="num_parte">Numero de parte</label>
         <input type="text" name="num_parte" id = "num_parte" placeholder="Número de Parte">
         <label for="existencia">Existencia</label>
@@ -173,7 +152,7 @@
         </select>
 
         <label for="observaciones">Observaciones</label>
-        <textarea name="comentarios" cols="45" rows = "10" placeholder="Observacions"></textarea>
+        <textarea name="observaciones" cols="45" rows = "10" placeholder="Observacions"></textarea>
 
         <input type="submit" value="Capturar Refaccion" class="btn_save">
 
