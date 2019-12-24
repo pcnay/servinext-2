@@ -25,7 +25,7 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']))  
+    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['observaciones']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
@@ -43,7 +43,7 @@
 
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
-        $consulta->query = "UPDATE t_Refaccion SET descripcion = '$descripcion',num_parte = '$num_parte' ,existencia = $existencia ,fecha = '$fecha' ,id_marca = $marca ,id_modelo = $modelo ,observaciones = '$observaciones' WHERE id_refaccion = $id_refaccion)";
+        $consulta->query = "UPDATE t_Refaccion SET descripcion = '$descripcion',num_parte = '$num_parte' ,existencia = $existencia ,fecha = '$fecha' ,id_marca = $marca ,id_modelo = $modelo ,observaciones = '$observaciones' WHERE id_refaccion = $id_refaccion";
         //print_r ($consulta->query);
         //exit;
 
@@ -74,7 +74,7 @@
     // Validar que el "id" existe en la base de datos.
     $id_refaccion = $_GET['id'];
     $conectar = new Conexion();
-    $conectar->query = "SELECT id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo FROM t_Refaccion WHERE id_refaccion = $id_refaccion ";
+    $conectar->query = "SELECT id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,observaciones FROM t_Refaccion WHERE id_refaccion = $id_refaccion ";
     $datos2 = $conectar->get_query();
 
 
@@ -94,7 +94,8 @@
         $existencia = $datos2[$n]['existencia'];
         $fecha = $datos2[$n]['fecha'];
         $id_marca = $datos2[$n]['id_marca'];
-        $id_modelo = $datos2[$n]['id_modelo'];
+				$id_modelo = $datos2[$n]['id_modelo'];
+				$observaciones = $datos2[$n]['observaciones'];
 
       } // for ($n=0;$n<count($datos2);$n++)
   
@@ -177,6 +178,9 @@
           <option value="">Modelo</option>
             <?php echo $modelo_select; ?>
         </select>
+				<br/>
+        <textarea name="observaciones" cols="45" rows="10" placeholder="Observaciones" ><?php echo $observaciones; ?></textarea>
+
 
         <input type="submit" value="Actualizar Refaccion" class="btn_save">
 

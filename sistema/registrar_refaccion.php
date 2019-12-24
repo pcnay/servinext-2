@@ -152,7 +152,7 @@
         </select>
 
         <label for="observaciones">Observaciones</label>
-        <textarea name="observaciones" cols="45" rows = "10" placeholder="Observacions"></textarea>
+        <textarea name="observaciones" id="observaciones" cols="45" rows = "10" placeholder="Observacions"></textarea>
 
         <input type="submit" value="Capturar Refaccion" class="btn_save">
 
