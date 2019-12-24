@@ -3,12 +3,9 @@
   //ob_clean();
   require_once('../FPDF/fpdf.php');
   include "../conexion.php";
-
   while (ob_get_level())
   ob_end_clean();
   header("Content-Encoding: None", true);
-
-
   
   class PDF extends FPDF
   {
@@ -35,10 +32,7 @@
       $this->SetFont('Arial','I',8);
       $this->Cell(0,10,utf8_decode('Página').$this->PageNo().'/{nb}',0,0,'C');
     }
-
   }
-
-
   // 'L' = Horizontal(Acostada), 'P' = Vertical (Normal)
   // $pdf = new PDF('L','cm','Letter');
   $pdf = new PDF('L','mm','Letter');
@@ -46,18 +40,14 @@
   $pdf->AddPage();
   $pdf->SetFont('Arial','',10);
   // Imprimir los datos.
-
-
   //$inventario_controller = new InventariosController();
   //$inventarios = $inventario_controller->get();
   //Cell(Ancho,Alto,Texto,Border=1,SigLinea=1 0=SinSaltoLinea,'Centrado,Left,Right',Relleno 0=Sin 1=Con)
   // MultiCell(Ancho,AltoFuente(puntos),'Texto Largo',1=Border 0=SinBorder,'Alineacion',Fondo(0=SinFondo))
-
   $consulta = new Conexion();
-  $consulta->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,r.rol FROM t_Usuarios u INNER JOIN t_Rol r ON u.id_rol = r.id_rol WHERE u.estatus = '1' ORDER BY u.nombre ASC";
+  $consulta->query = "SELECT u.idusuario,u.nombre,u.email,u.usuario,u.cumpleanos,r.rol FROM t_Usuarios AS u INNER JOIN t_Rol AS r ON u.id_rol = r.id_rol WHERE u.estatus = '1' ORDER BY u.nombre ASC";
   //print_r ($consulta->query);
   //exit;
-
   $datos2 = $consulta->get_query();
   
   for ($n=0;$n<count($datos2);$n++)
@@ -69,9 +59,7 @@
     $pdf->Cell(30,5,$datos2[$n]['cumpleanos'],1,0,'L',0);
     $pdf->Cell(30,5,$datos2[$n]['rol'],1,1,'L',0);
   }
-
   $pdf->Output();
   ob_end_flush();
-
   
 ?>

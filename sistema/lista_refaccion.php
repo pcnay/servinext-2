@@ -113,7 +113,7 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
 */
 
           $consulta = new Conexion();
-          $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descripcion AS mar_descripcion,modelo.descripcion AS mod_descripcion,r.observaciones 
+          $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,r.id_marca,r.id_modelo,marca.descripcion AS mar_descripcion,modelo.descripcion AS mod_descripcion,r.observaciones 
           FROM t_Refaccion r 
           INNER JOIN t_Marca AS marca ON r.id_marca = marca.id_marca
           INNER JOIN t_Modelo AS modelo ON r.id_modelo = modelo.id_modelo

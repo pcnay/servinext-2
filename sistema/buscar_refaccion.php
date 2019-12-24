@@ -77,7 +77,8 @@ if ($_SESSION['rol'] != 1)
         $conectar = new Conexion();
         $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Refaccion WHERE (id_refaccion LIKE '%$busqueda%' OR 
         descripcion LIKE '%$busqueda%' OR 
-        fecha LIKE '%$busqueda%'";
+        fecha LIKE '%$busqueda%' OR
+        num_parte LIKE '%$busqueda%'";
         //print_r ($conectar->query);
         //exit;
 
@@ -131,6 +132,7 @@ if ($_SESSION['rol'] != 1)
           r.id_refaccion LIKE '%$busqueda%' OR 
           r.descripcion LIKE '%$busqueda%' OR 
           r.fecha LIKE '%$busqueda%' OR 
+          r.num_parte LIKE '%$busqueda%' 
           ORDER BY r.descripcion ASC LIMIT $desde,$por_pagina";
 
           $datos2 = $consulta->get_query();

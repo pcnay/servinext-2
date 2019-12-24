@@ -25,9 +25,22 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['observaciones']))  
+    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['id_marca']) || empty($_POST['id_modelo']) || empty($_POST['observaciones']))  
     {
+
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
+    /*      
+      $num_par = $_POST['num_parte'];
+      $descripcion = $_POST['descripcion'];
+      $existencia = $_POST['existencia'];
+      $fecha = $_POST['fecha'];
+      $marca = $_POST['id_marca'];
+      $modelo = $_POST['id_modelo'];
+      $observaciones = $_POST['observaciones'];
+      print_r ($num_par.' + '.$descripcion.' + '.$existencia.' + '.$fecha.' + '.$marca.' + '.$modelo.' + '.$observaciones);
+      exit;
+      */
+
     }
     else
     {
@@ -36,10 +49,9 @@
       $num_parte = $_POST['num_parte'];
       $existencia = $_POST['existencia'];
       $fecha = $_POST['fecha'];
-      $marca = $_POST['marca'];
-      $modelo = $_POST['modelo'];
+      $marca = $_POST['id_marca'];
+      $modelo = $_POST['id_modelo'];
       $observaciones = $_POST['observaciones'];
-
 
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
@@ -157,6 +169,8 @@
       <div class="alert"><?php echo isset($alert)? $alert : ''?></div>
       <!-- Con "action" vacio se autoprocesara el formulario, es decir se iniciara desde el incio del archivo cuando se oprime el boton "Crear Usuario" -->
       <form action ="" method="post">
+        <input type="hidden" name="id_refaccion" id="id_refaccion" value="<?php echo $id_refaccion; ?>">
+
         <label for="descripcion">Descripcion</label>
         <input type="text" name="descripcion" id = "descripcion" placeholder="Descripcion" value = "<?php echo $descripcion; ?>">         
         <label for="num_parte">Numero de parte</label>
