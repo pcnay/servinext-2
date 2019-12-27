@@ -37,6 +37,7 @@
 	<section id="container">
 		<h1>LISTA DE REFACCIONES</h1>
     <a href="registrar_refaccion.php" class="btn_new">Capturar Refaccion</a>
+    <a href="rep_excel_refacc.php" class="btn_new">Reporte Excel</a>
     <a href="reporte_refaccion.php" target="_blank" class="btn_reporte">Reporte Refaccion</a>
 
     <!-- Sección para Buscar usuarios -->
