@@ -37,7 +37,7 @@
 	<section id="container">
 		<h1>LISTA DE REFACCIONES</h1>
     <a href="registrar_refaccion.php" class="btn_new">Capturar Refaccion</a>
-    <a href="reporte_refaccion.php" target="_blank" class="btn_reporte">Reporte Usuarios</a>
+    <a href="reporte_refaccion.php" target="_blank" class="btn_reporte">Reporte Refaccion</a>
 
     <!-- Sección para Buscar usuarios -->
     <form action="buscar_refaccion.php" method="get" class="form_search">
@@ -75,7 +75,7 @@
 
         $total_registro = $datos[0]['total_registro'];
 
-        $por_pagina = 3;
+        $por_pagina = 15;
         
         // Este valor es que se pasara por la URL, cuando se oprime un número del paginador.
         if (empty ($_GET['pagina']))

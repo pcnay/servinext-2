@@ -158,7 +158,7 @@ CREATE TABLE t_Refaccion
 (
   id_refaccion INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   descripcion VARCHAR(80) NOT NULL,
-  num_parte VARCHAR(45) NOT NULL,
+  num_parte VARCHAR(45) UNIQUE NOT NULL,
   existencia tinyint DEFAULT 1,
   fecha DATE NOT NULL,
   id_marca INTEGER UNSIGNED NOT NULL,

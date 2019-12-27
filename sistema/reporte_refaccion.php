@@ -66,7 +66,6 @@
   INNER JOIN t_Modelo AS mod ON r.id_modelo = mod.id_modelo
 */
 
-
   $consulta = new Conexion();
   $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,mar.descripcion AS marca,modl.descripcion AS modelo,r.observaciones FROM t_Refaccion AS r 
   INNER JOIN t_Marca AS mar ON r.id_marca = mar.id_marca 

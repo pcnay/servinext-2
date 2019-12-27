@@ -15,7 +15,7 @@
     */
   ]); 
 
-if ($_SESSION['rol'] != 1)
+if ($_SESSION['id_rol'] != 1)
 {
   header ("location: ./");
 }
@@ -47,11 +47,12 @@ if ($_SESSION['rol'] != 1)
 
 		<h1>LISTA DE USUARIOS</h1>
     <a href="registrar_refaccion.php" class="btn_new">Capturar Refaccion</a>
+    <a href="rep_refacc_busq.php?id=<?php echo $busqueda; ?>" target="_blank" class="btn_reporte">Reporte Refacciones</a>
 
     <!-- Sección para Buscar usuarios -->
     <form action="buscar_refaccion.php" method="get" class="form_search">
       <input type="text" name ="busqueda" id = "busqueda" placeholder = "Buscar" value="<?php echo $busqueda; ?>" >
-      <input type="submit" value="Buscar" class = "btn_search">
+      <input type="submit" value="Buscar" class = "btn_search">      
     </form>
 
     <table>
@@ -78,7 +79,7 @@ if ($_SESSION['rol'] != 1)
         $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Refaccion WHERE (id_refaccion LIKE '%$busqueda%' OR 
         descripcion LIKE '%$busqueda%' OR 
         fecha LIKE '%$busqueda%' OR
-        num_parte LIKE '%$busqueda%'";
+        num_parte LIKE '%$busqueda%')";
         //print_r ($conectar->query);
         //exit;
 
@@ -132,8 +133,10 @@ if ($_SESSION['rol'] != 1)
           r.id_refaccion LIKE '%$busqueda%' OR 
           r.descripcion LIKE '%$busqueda%' OR 
           r.fecha LIKE '%$busqueda%' OR 
-          r.num_parte LIKE '%$busqueda%' 
+          r.num_parte LIKE '%$busqueda%') 
           ORDER BY r.descripcion ASC LIMIT $desde,$por_pagina";
+          //print_r ($consulta->query);
+          //exit;
 
           $datos2 = $consulta->get_query();
           //print_r (count($datos2));
@@ -151,7 +154,7 @@ if ($_SESSION['rol'] != 1)
               <td><?php echo $datos2[$n]['mar_descripcion']; ?></td>
               <td><?php echo $datos2[$n]['mod_descripcion']; ?></td>
               <td><?php echo $datos2[$n]['observaciones']; ?></td>
-  
+              <td>
                 <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
                 <a class="link_edit" href="editar_refaccion.php?id=<?php echo $datos2[$n]['id_refaccion']; ?>">Editar</a>             
                 |              

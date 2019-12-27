@@ -57,7 +57,7 @@
         }
         else
         {
-          $alert = '<p class="msg_error">Error Al Capturar La Refacción</p>';
+          $alert = '<p class="msg_error">Error Al Capturar La Refacción y/o Num Parte Ya Existe </p>';
         }             
     } // if(empty($_POST['descripcion']) || ...
 
