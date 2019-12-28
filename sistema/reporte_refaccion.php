@@ -22,13 +22,13 @@
       // Este valor "135" es para centrar, independiente del texto escrito
       $this->Cell(135,10,'REPORTE REFACCIONES',0,0,'C');
       $this->Ln(20);
-      $this->Cell(10,5,'ID',1,0,'C',0);
-      $this->Cell(50,5,'DESCRIPCION',1,0,'C',0);
-      $this->Cell(40,5,'NUM_PARTE',1,0,'C',0);
-      $this->Cell(10,5,'CANT',1,0,'C',0);
+      //$this->Cell(10,5,'ID',1,0,'C',0);
+      $this->Cell(85,5,'DESCRIPCION',1,0,'C',0);
+      $this->Cell(25,5,'N/P',1,0,'C',0);
+      $this->Cell(10,5,'EXIS',1,0,'C',0);
       $this->Cell(25,5,'FECHA',1,0,'C',0);  
-      $this->Cell(35,5,'MARCA',1,0,'C',0);
-      $this->Cell(35,5,'MODELO',1,0,'C',0);
+      $this->Cell(25,5,'MARCA',1,0,'C',0);
+      $this->Cell(25,5,'MODELO',1,0,'C',0);
       $this->Cell(60,5,'OBSERVACIONES',1,1,'C',0); // 1,1 = Salto de Linea
     }
     function Footer()
@@ -78,15 +78,15 @@
   
   for ($n=0;$n<count($datos2);$n++)
   {
-    $pdf->Cell(10,5,$datos2[$n]['id_refaccion'],1,0,'L',0);
-    $pdf->Cell(50,5,$datos2[$n]['descripcion'],1,0,'L',0);
-    $pdf->Cell(40,5,$datos2[$n]['num_parte'],1,0,'L',0);
-    $pdf->Cell(10,5,$datos2[$n]['existencia'],1,0,'L',0);
-    $pdf->Cell(25,5,$datos2[$n]['fecha'],1,0,'L',0);
-    $pdf->Cell(35,5,$datos2[$n]['marca'],1,0,'L',0);
-    $pdf->Cell(35,5,$datos2[$n]['modelo'],1,0,'L',0);
+    //$pdf->Cell(10,5,$datos2[$n]['id_refaccion'],0,0,'L',0);
+    $pdf->Cell(85,5,$datos2[$n]['descripcion'],0,0,'L',0);
+    $pdf->Cell(25,5,$datos2[$n]['num_parte'],0,0,'L',0);
+    $pdf->Cell(10,5,$datos2[$n]['existencia'],0,0,'L',0);
+    $pdf->Cell(25,5,$datos2[$n]['fecha'],0,0,'L',0);
+    $pdf->Cell(25,5,$datos2[$n]['marca'],0,0,'L',0);
+    $pdf->Cell(25,5,$datos2[$n]['modelo'],0,0,'L',0);
     // MultiCell(Ancho,AltoFuente(puntos),'Texto Largo',1=Border 0=SinBorder,'Alineacion',Fondo(0=SinFondo))
-    $pdf->MultiCell(60,5,$datos2[$n]['observaciones'],1,'L',0);
+    $pdf->MultiCell(60,5,$datos2[$n]['observaciones'],0,'L',0);
 
   }
 

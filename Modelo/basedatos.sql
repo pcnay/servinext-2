@@ -171,6 +171,7 @@ CREATE TABLE t_Refaccion
 );
 
 /* Precargando los datos */
+/*
 INSERT INTO t_Marca (id_marca,descripcion) VALUES
   (1,'HewllwtPackard'),
   (2,'Dell'),
@@ -180,11 +181,6 @@ INSERT INTO t_Modelo (id_modelo,descripcion) VALUES
   (1,'MX711'),
   (2,'MX611'),
   (3,'Optiplex 970');
-
-INSERT INTO t_Rol (id_rol,rol) VALUES
-  (1,'Administrador'),
-  (2,'Supervisor'),
-  (3,'ingenieria');
 
 INSERT INTO t_Clientes (id_clientes,nombre) VALUES
   (1,'Banamex'),
@@ -197,6 +193,13 @@ INSERT INTO t_Tipo_Componente (id_tipo_componente,descripcion) VALUES
   (3,'Portatil'),
   (4,'Teclado'),
   (5,'NoteBook');
+
+*/
+
+INSERT INTO t_Rol (id_rol,rol) VALUES
+  (1,'Administrador'),
+  (2,'Supervisor'),
+  (3,'ingenieria');
 
 INSERT INTO t_Sucursales (id_sucursal,nombre,num_suc,domicilio,referencias,tel_fijo,tel_movil,contacto) VALUES
   (1,'Banamex Matamoros','4333','Ruta Independencia No. 15150','Dentro Plaza Mariano Matamoros','664-999-99-99','664-99-99','Julio Salazar'),
