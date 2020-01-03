@@ -12,12 +12,6 @@
 					<a href="#">Historial Equipo</a>
 					<ul>
 						<li><a href="registrar_sucursal.php">Nueva Sucursal</a></li>						
-					</ul>
-				</li>
-
-				<li class="principal">
-					<a href="#">Clientes</a>
-					<ul>
 						<li><a href="registro_clientes.php">Nuevo Cliente</a></li>
 						<li><a href="listar_clientes.php">Lista de Clientes</a></li>
 					</ul>
@@ -40,35 +34,15 @@
 						<li><a href="listar_tipocomp.php">Lista Tipo Componente</a></li>
 						<li><a href="registrar_refaccion.php">Nueva Refaccion</a></li>
 						<li><a href="lista_refaccion.php">Lista Refaccion</a></li>
-
-						<!-- 
-						<li><a href="registro_rol.php">Nuevo Rol</a></li>
-						<li><a href="lista_rol.php">Lista De Rol</a></li>
-						-->
-
-					</ul>
-				</li>
-
-				<li class="principal">
-					<a href="#">Proveedores</a>
-					<ul>
-						<li><a href="#">Nuevo Proveedor</a></li>
-						<li><a href="#">Lista de Proveedores</a></li>
 					</ul>
 				</li>
 				<li class="principal">
-					<a href="#">Productos</a>
+					<a href="#">Equipos</a>
 					<ul>
-						<li><a href="#">Nuevo Producto</a></li>
-						<li><a href="#">Lista de Productos</a></li>
+						<li><a href="registro_epo.php">Nuevo Equipo</a></li>
+						<li><a href="lista_epo.php">Lista De Equipo</a></li>
 					</ul>
 				</li>
-				<li class="principal">
-					<a href="#">Facturas</a>
-					<ul>
-						<li><a href="#">Nuevo Factura</a></li>
-						<li><a href="#">Facturas</a></li>
-					</ul>
-				</li>
+
 			</ul>
 		</nav>
