@@ -2,7 +2,7 @@
   class Conexion
   {
     private static $host = 'localhost'; 
-    private static $user = 'root';
+    private static $user = 'servicios';
     private static $password = 'pcnay2003';
     private static $db_name = 'ordenservicios';
     private static $db_charset = 'uft8';

@@ -18,6 +18,9 @@ DROP DATABASE IF EXISTS ordenservicios;
 CREATE DATABASE IF NOT EXISTS ordenservicios;
 USE ordenservicios;
 
+CREATE USER 'servicios'@'localhost' IDENTIFIED BY 'pcnay2003';
+GRANT ALL on ordenservicios.* to 'servicios'  IDENTIFIED BY 'pcnay2003';
+
 
 /* Tabla de Datos */
 /* Se ocupa los 9 espacios, no se desperdicia espacio.*/
