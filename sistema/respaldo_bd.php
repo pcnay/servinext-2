@@ -1,7 +1,7 @@
 <?php
   $db_host = 'localhost';
   $db_name = 'ordenservicios';
-  $db_user = 'root';
+  $db_user = 'servicios';
   $db_pass = 'pcnay2003';
 
   $fecha = date("Ymd-His");
