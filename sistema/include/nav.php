@@ -9,6 +9,13 @@
 					</ul>
 				</li>
 				<li class="principal">
+					<a href="#">Historial Equipo</a>
+					<ul>
+						<li><a href="registrar_sucursal.php">Nueva Sucursal</a></li>						
+					</ul>
+				</li>
+
+				<li class="principal">
 					<a href="#">Clientes</a>
 					<ul>
 						<li><a href="registro_clientes.php">Nuevo Cliente</a></li>
