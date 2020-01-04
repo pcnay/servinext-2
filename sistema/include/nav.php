@@ -39,8 +39,8 @@
 				<li class="principal">
 					<a href="#">Equipos</a>
 					<ul>
-						<li><a href="registro_epo.php">Nuevo Equipo</a></li>
-						<li><a href="lista_epo.php">Lista De Equipo</a></li>
+						<li><a href="registrar_equipo.php">Nuevo Equipo</a></li>
+						<li><a href="listar_equipo.php">Lista De Equipo</a></li>
 					</ul>
 				</li>
 
