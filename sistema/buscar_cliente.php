@@ -1,4 +1,5 @@
 <?php
+
   session_start([
     "use_only_cookies" => 1,
     //x Este valor es solo modificable en ".htaccess, httpd.conf,user.ini
