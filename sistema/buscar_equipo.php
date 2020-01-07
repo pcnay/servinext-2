@@ -35,6 +35,17 @@
 	<?php include "include/header.php" ?>
 
 	<section id="container">
+	    <!-- Obtener el valor de la variable del formulario "Buscador" -->
+			<?php 
+				// Obtiene el valor tanto de GET y POST
+				$busqueda = strtolower($_REQUEST['busqueda']);
+				if (empty($busqueda))
+				{
+					header ("location: listar_equipo.php");
+				}
+			?>
+
+
 		<h1>LISTA DE EQUIPOS</h1>
     <a href="registrar_equipo.php" class="btn_new">Capturar Equipo</a>
     <a href="rep_excel_equipo.php" class="btn_new">Reporte Excel</a>
@@ -69,7 +80,10 @@
         //$result_register = mysqli_fetch_array($sql_registe);
         //$total_registro = $result_register['total_registro'];
         $conectar = new Conexion();
-        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Equipo";
+        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Equipo WHERE (id_epo LIKE '%$busqueda%' OR 
+        num_serie LIKE '%$busqueda%' OR 
+        num_inv LIKE '%$busqueda%' OR
+        num_parte LIKE '%$busqueda%')";
         //print_r ($conectar->query);
         //exit;
 
@@ -113,6 +127,11 @@
 					INNER JOIN t_Marca AS marca ON e.id_marca = marca.id_marca 
 					INNER JOIN t_Modelo AS modelo ON e.id_modelo = modelo.id_modelo
 					INNER JOIN t_Tipo_Componente AS tc ON e.id_tipo_componente = tc.id_tipo_componente
+					WHERE (
+          e.id_epo LIKE '%$busqueda%' OR 
+          e.num_serie LIKE '%$busqueda%' OR 
+          e.num_inv LIKE '%$busqueda%' OR 
+          e.num_parte LIKE '%$busqueda%') 
 					ORDER BY e.num_serie ASC LIMIT $desde,$por_pagina";
 
           //print_r ($consulta->query);
