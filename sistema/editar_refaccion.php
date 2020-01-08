@@ -83,7 +83,7 @@
   }
   else
   {
-    // Validar que el "id" existe en la base de datos.
+    // Validar que el "id" existe en la base de datos., para ser mostrado en la vista de la pantalla  
     $id_refaccion = $_GET['id'];
     $conectar = new Conexion();
     $conectar->query = "SELECT id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,observaciones FROM t_Refaccion WHERE id_refaccion = $id_refaccion ";
