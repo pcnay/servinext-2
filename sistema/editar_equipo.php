@@ -44,8 +44,8 @@
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
         $consulta->query = "UPDATE t_Equipo SET num_serie = '$descripcion',num_inv = '$num_inv',num_parte = '$num_parte',existencia = $existencia,id_marca = '$marca',id_modelo = '$modelo',id_tipo_componente = '$tipo_comp',comentarios = '$comentarios'";
-        //print_r ($consulta->query);
-        //exit;
+        print_r ($consulta->query);
+        exit;
 
         $Consulta = $consulta->set_query();        
         
@@ -166,11 +166,12 @@
     <div class="form_register">
       <h1>Editar Equipo</h1>
       <hr>
+            
       <div class="alert"><?php echo isset($alert)? $alert : ''?></div>
       <!-- Con "action" vacio se autoprocesara el formulario, es decir se iniciara desde el incio del archivo cuando se oprime el boton "Crear Sucursal" -->
       <form action ="" method="post">
         <label for="num_serie">Numero De Serie</label>
-        <input type="text" name="num_serie" id = "num_serie" placeholder="Numero de Serie" value="<?php echo $id_equipo; ?>" >   
+        <input type="text" name="num_serie" id = "num_serie" placeholder="Numero de Serie" value="<?php echo $num_serie; ?>" >   
         <label for="num_inv">Numero De Inventario</label>
         <input type="text" name="num_inv" id = "num_inv" placeholder="Número De Inventario" value="<?php echo $num_inv; ?>">
         <label for="num_parte">Numero De Parte</label>
