@@ -3,12 +3,9 @@
   //ob_clean();
   require_once('../FPDF/fpdf.php');
   include "../conexion.php";
-
   while (ob_get_level())
   ob_end_clean();
   header("Content-Encoding: None", true);
-
-
   
   class PDF extends FPDF
   {
@@ -37,10 +34,7 @@
       $this->SetFont('Arial','I',8);
       $this->Cell(0,10,utf8_decode('Página').$this->PageNo().'/{nb}',0,0,'C');
     }
-
   }
-
-
   // 'L' = Horizontal(Acostada), 'P' = Vertical (Normal)
   // $pdf = new PDF('L','cm','Letter');
   $pdf = new PDF('L','mm','Letter');
@@ -48,24 +42,18 @@
   $pdf->AddPage();
   $pdf->SetFont('Arial','',10);
   // Imprimir los datos.
-
-
   //$inventario_controller = new InventariosController();
   //$inventarios = $inventario_controller->get();
   //Cell(Ancho,Alto,Texto,Border=1,SigLinea=1 0=SinSaltoLinea,'Centrado,Left,Right',Relleno 0=Sin 1=Con)
   // MultiCell(Ancho,AltoFuente(puntos),'Texto Largo',1=Border 0=SinBorder,'Alineacion',Fondo(0=SinFondo))
-
 /*
   :"SELECT epo.id_epo,epo.num_serie,epo.num_inv,epo.num_parte,epo.id_tipo_componente,tc.descripcion AS componente,epo.id_marca,marca.descripcion AS marca,epo.id_modelo,modelo.descripcion AS modelo,epo.existencia,epo.comentarios FROM t_Equipo AS epo 
   INNER JOIN t_Tipo_Componente AS tc ON epo.id_tipo_componente = tc.id_tipo_componente
   INNER JOIN t_Marca AS marca ON epo.id_marca = marca.id_marca
   INNER JOIN t_Modelo AS modelo ON epo.id_modelo = modelo.id_modelo";
-
   mar.descripcion AS mar.marca, mod.id_modelo AS mod.modelo FROM t_Refaccion AS r INNER JOIN t_Marca AS mar ON r.id_marca = mar.id_marca INNER JOIN t_Modelo AS mod ON r.id_modelo = mod.id_modelo
-
   INNER JOIN t_Modelo AS mod ON r.id_modelo = mod.id_modelo
 */
-
   $consulta = new Conexion();
   $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,mar.descripcion AS marca,modl.descripcion AS modelo,r.observaciones FROM t_Refaccion AS r 
   INNER JOIN t_Marca AS mar ON r.id_marca = mar.id_marca 
@@ -73,7 +61,6 @@
   ORDER BY r.descripcion ASC";
   //print_r ($consulta->query);
   //exit;
-
   $datos2 = $consulta->get_query();
   
   for ($n=0;$n<count($datos2);$n++)
@@ -87,11 +74,8 @@
     $pdf->Cell(25,5,$datos2[$n]['modelo'],0,0,'L',0);
     // MultiCell(Ancho,AltoFuente(puntos),'Texto Largo',1=Border 0=SinBorder,'Alineacion',Fondo(0=SinFondo))
     $pdf->MultiCell(60,5,$datos2[$n]['observaciones'],0,'L',0);
-
   }
-
   $pdf->Output();
   ob_end_flush();
-
   
 ?>
