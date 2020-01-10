@@ -25,27 +25,29 @@
   if (!empty($_POST))
   {
     $alert = '';
-    if(empty($_POST['num_serie']) || empty($_POST['num_inv']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['tipo_comp']))  
+    if(empty($_POST['num_serie']) || empty($_POST['num_inv']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['id_marca']) || empty($_POST['id_modelo']) || empty($_POST['id_tipo_componente']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
     else
-    {          
+    { 
+      $id_equipo = $_POST['id_equipo'];         
       $num_serie = $_POST['num_serie'];
       $num_inv = $_POST['num_inv'];
       $num_parte = $_POST['num_parte'];
       $existencia = $_POST['existencia'];
-      $marca = $_POST['marca'];
-			$modelo = $_POST['modelo'];
-			$tipo_comp = $_POST['tipo_comp'];
+      $marca = $_POST['id_marca'];
+			$modelo = $_POST['id_modelo'];
+			$tipo_comp = $_POST['id_tipo_componente'];
   		$comentarios = $_POST['comentarios'];
 
 
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
-        $consulta->query = "UPDATE t_Equipo SET num_serie = '$descripcion',num_inv = '$num_inv',num_parte = '$num_parte',existencia = $existencia,id_marca = '$marca',id_modelo = '$modelo',id_tipo_componente = '$tipo_comp',comentarios = '$comentarios'";
-        print_r ($consulta->query);
-        exit;
+        $consulta->query = "UPDATE t_Equipo SET num_serie = '$num_serie',num_inv = '$num_inv',num_parte = '$num_parte',existencia = $existencia,id_marca = $marca,id_modelo = $modelo,id_tipo_componente = $tipo_comp,comentarios = '$comentarios' WHERE id_epo = $id_equipo";
+        //print_r ($consulta->query);
+        //print_r($id_equipo);
+        //exit;
 
         $Consulta = $consulta->set_query();        
         
@@ -165,11 +167,11 @@
 		<!-- Es el contenido del registro de Refacción -->
     <div class="form_register">
       <h1>Editar Equipo</h1>
-      <hr>
-            
+      <hr>          
       <div class="alert"><?php echo isset($alert)? $alert : ''?></div>
       <!-- Con "action" vacio se autoprocesara el formulario, es decir se iniciara desde el incio del archivo cuando se oprime el boton "Crear Sucursal" -->
       <form action ="" method="post">
+        <input type="hidden" name="id_equipo" id="id_equipo" value="<?php echo $id_equipo; ?>">
         <label for="num_serie">Numero De Serie</label>
         <input type="text" name="num_serie" id = "num_serie" placeholder="Numero de Serie" value="<?php echo $num_serie; ?>" >   
         <label for="num_inv">Numero De Inventario</label>
