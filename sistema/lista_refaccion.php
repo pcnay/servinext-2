@@ -40,7 +40,8 @@
     <a href="rep_excel_refacc.php" class="btn_new">Reporte Excel</a>
     <a href="reporte_refaccion.php" target="_blank" class="btn_reporte">Reporte Refaccion</a>
 
-    <!-- Sección para Buscar usuarios -->
+    
+    <!-- Sección para Buscar refacción -->
     <form action="buscar_refaccion.php" method="get" class="form_search">
       <input type="text" name ="busqueda" id = "busqueda" placeholder = "Buscar" >
       <input type="submit" value="Buscar" class = "btn_search">
