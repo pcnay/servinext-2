@@ -56,6 +56,7 @@
   FROM t_Refaccion r 
   INNER JOIN t_Marca AS marca ON r.id_marca = marca.id_marca
   INNER JOIN t_Modelo AS modelo ON r.id_modelo = modelo.id_modelo     
+  
   WHERE (
   r.id_refaccion LIKE '%$busqueda%' OR 
   r.descripcion LIKE '%$busqueda%' OR 

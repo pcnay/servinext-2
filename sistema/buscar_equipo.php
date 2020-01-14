@@ -49,7 +49,8 @@
 		<h1>LISTA DE EQUIPOS</h1>
     <a href="registrar_equipo.php" class="btn_new">Capturar Equipo</a>
     <a href="rep_excel_equipo.php" class="btn_new">Reporte Excel</a>
-    <a href="reporte_equipo.php" target="_blank" class="btn_reporte">Reporte Equipos</a>
+    <a href="rep_epo_busq.php?id=<?php echo $busqueda; ?>" target="_blank" class="btn_reporte">Reporte Equipos</a>
+
 
     <!-- Sección para Buscar Equipos -->
     <form action="buscar_equipo.php" method="get" class="form_search">
