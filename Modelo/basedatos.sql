@@ -137,17 +137,21 @@ CREATE TABLE t_Usuarios
 CREATE TABLE t_Historico_epo
 (
   id_Historico_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  /*
   id_marca INTEGER UNSIGNED NOT NULL,
-  id_modelo INTEGER UNSIGNED NOT NULL,
+   id_modelo INTEGER UNSIGNED NOT NULL, */
   id_clientes INTEGER UNSIGNED NOT NULL,
   id_sucursal INTEGER UNSIGNED NOT NULL,
   id_epo INTEGER UNSIGNED NOT NULL,
-  fecha DATE NOT NULL,
-  notas TEXT NULL,
+  
+  /* fecha DATE NOT NULL,
+  notas TEXT NULL, */
+/*
   FOREIGN KEY(id_marca) REFERENCES t_Marca(id_marca)
     ON DELETE RESTRICT ON UPDATE CASCADE,
   FOREIGN KEY(id_modelo) REFERENCES t_Modelo(id_modelo)
     ON DELETE RESTRICT ON UPDATE CASCADE,
+*/
   FOREIGN KEY(id_clientes) REFERENCES t_Clientes(id_clientes)
     ON DELETE RESTRICT ON UPDATE CASCADE,
   FOREIGN KEY(id_sucursal) REFERENCES t_Sucursales(id_sucursal)
@@ -155,6 +159,16 @@ CREATE TABLE t_Historico_epo
   FOREIGN KEY(id_epo) REFERENCES t_Equipo(id_epo)
     ON DELETE RESTRICT ON UPDATE CASCADE    
     
+);
+
+CREATE TABLE t_Detalle_historico_epo
+(
+  id_detalle_historial INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  id_historico_epo INTEGER UNSIGNED NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  notas TEXT NULL,
+  FOREIGN KEY(id_historico_epo) REFERENCES t_Historico_epo(id_historico_epo)
+    ON DELETE RESTRICT ON UPDATE CASCADE    
 );
 
 CREATE TABLE t_Refaccion
