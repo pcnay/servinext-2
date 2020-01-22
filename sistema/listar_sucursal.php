@@ -60,7 +60,6 @@
         <th>ACCIONES</th>        
       </tr>
 
-
       <?php
         //$query = mysqli_query($conection,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.estatus=1");
         //$consulta->get_query();  
@@ -70,10 +69,9 @@
         //$result_register = mysqli_fetch_array($sql_registe);
         //$total_registro = $result_register['total_registro'];
 
-        /* ******************* AQUI VOY */
-        
+              
         $conectar = new Conexion();
-        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Refaccion ";
+        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Sucursales";
         //print_r ($conectar->query);
         //exit;
 
@@ -81,7 +79,7 @@
 
         $total_registro = $datos[0]['total_registro'];
 
-        $por_pagina = 15;
+        $por_pagina = 7;
         
         // Este valor es que se pasara por la URL, cuando se oprime un número del paginador.
         if (empty ($_GET['pagina']))
@@ -119,11 +117,9 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
 */
 
           $consulta = new Conexion();
-          $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,r.id_marca,r.id_modelo,marca.descripcion AS mar_descripcion,modelo.descripcion AS mod_descripcion,r.observaciones 
-          FROM t_Refaccion r 
-          INNER JOIN t_Marca AS marca ON r.id_marca = marca.id_marca
-          INNER JOIN t_Modelo AS modelo ON r.id_modelo = modelo.id_modelo
-          ORDER BY r.descripcion ASC LIMIT $desde,$por_pagina";
+          $consulta->query = "SELECT id_sucursal,nombre,num_suc,domicilio,referencias,tel_fijo,tel_movil,contacto
+          FROM t_Sucursales          
+          ORDER BY nombre ASC LIMIT $desde,$por_pagina";
 
           //print_r ($consulta->query);
           //exit;
@@ -136,19 +132,19 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
           {
        ?>
             <tr>
-              <td><?php echo $datos2[$n]['id_refaccion']; ?></td>
-              <td><?php echo $datos2[$n]['descripcion']; ?></td>
-              <td><?php echo $datos2[$n]['num_parte']; ?></td>
-              <td><?php echo $datos2[$n]['existencia']; ?></td>
-              <td><?php echo $datos2[$n]['fecha']; ?></td>
-              <td><?php echo $datos2[$n]['mar_descripcion']; ?></td>
-              <td><?php echo $datos2[$n]['mod_descripcion']; ?></td>
-              <td><?php echo $datos2[$n]['observaciones']; ?></td>
+              <td><?php echo $datos2[$n]['id_sucursal']; ?></td>
+              <td><?php echo $datos2[$n]['nombre']; ?></td>
+              <td><?php echo $datos2[$n]['num_suc']; ?></td>
+              <td><?php echo $datos2[$n]['domicilio']; ?></td>
+              <td><?php echo $datos2[$n]['referencias']; ?></td>
+              <td><?php echo $datos2[$n]['tel_fijo']; ?></td>
+              <td><?php echo $datos2[$n]['tel_movil']; ?></td>
+              <td><?php echo $datos2[$n]['contacto']; ?></td>
               <td>
-                <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->
-                <a class="link_edit" href="editar_refaccion.php?id=<?php echo $datos2[$n]['id_refaccion']; ?>">Editar</a>             
+                <!-- Se pasa el "Id" de la sucursal "editar_sucursal"-->
+                <a class="link_edit" href="editar_sucursal.php?id=<?php echo $datos2[$n]['id_sucursal']; ?>">Editar</a>             
                 |              
-                <a class="link_delete" href="eliminar_refaccion.php?id=<?php echo $datos2[$n]['id_refaccion']; ?>">Eliminar</a>
+                <a class="link_delete" href="eliminar_sucursal.php?id=<?php echo $datos2[$n]['id_sucursal']; ?>">Eliminar</a>
               </td>
             </tr>
       <?php      

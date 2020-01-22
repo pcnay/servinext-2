@@ -11,7 +11,7 @@
 				<li class="principal">
 					<a href="#">Historial Equipo</a>
 					<ul>
-						<li><a href="registrar_sucursal.php">Nueva Sucursal</a></li>						
+						<li><a href="registrar_sucursal.php">Nueva Sucursal</a></li>				<li><a href="listar_sucursal.php">Listado De Sucursales</a></li>						
 						<li><a href="registro_clientes.php">Nuevo Cliente</a></li>
 						<li><a href="listar_clientes.php">Lista de Clientes</a></li>
 					</ul>
