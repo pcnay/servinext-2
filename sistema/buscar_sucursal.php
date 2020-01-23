@@ -35,10 +35,19 @@
 	<?php include "include/header.php" ?>
 
 	<section id="container">
+    <!-- Obtener el valor de la variable del formulario "Buscar" -->
+    <?php
+      // Obtiene el valor tanto de GET o POST
+      $busqueda = strtolower($_REQUEST['busqueda']);
+      if (empty($busqueda))
+      {
+        header("location: listar_sucursal.php"); 
+      }
+    ?>
 		<h1>LISTA DE SUCURSALES</h1>
     <a href="registrar_sucursal.php" class="btn_new">Capturar Sucursal</a>
-    <a href="rep_excel_suc.php" class="btn_new">Reporte Excel</a>
-    <a href="reporte_sucursal.php" target="_blank" class="btn_reporte">Reporte Sucursal</a>
+    <a href="rep_excel_sucursal.php" class="btn_new">Reporte Excel</a>
+    <a href="rep_suc_busq.php?id=<?php echo $busqueda; ?>" target="_blank" class="btn_reporte">Reporte Equipos</a>
 
     
     <!-- Sección para Buscar Sucursal -->
@@ -71,7 +80,7 @@
 
               
         $conectar = new Conexion();
-        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Sucursales";
+        $conectar->query = "SELECT COUNT(*) AS total_registro FROM t_Sucursales WHERE (id_sucursal LIKE '%$busqueda%' OR nombre LIKE '%$busqueda%' OR num_suc LIKE '%$busqueda%')";
         //print_r ($conectar->query);
         //exit;
 
@@ -118,7 +127,8 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
 
           $consulta = new Conexion();
           $consulta->query = "SELECT id_sucursal,nombre,num_suc,domicilio,referencias,tel_fijo,tel_movil,contacto
-          FROM t_Sucursales          
+          FROM t_Sucursales     
+          WHERE (id_sucursal LIKE '%$busqueda%' OR nombre LIKE '%$busqueda%' OR num_suc LIKE '%$busqueda%')     
           ORDER BY nombre ASC LIMIT $desde,$por_pagina";
 
           //print_r ($consulta->query);
@@ -161,8 +171,8 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
           if ($pagina != 1)
           {
         ?>      
-            <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
-            <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+            <li><a href="?pagina=<?php echo 1; ?>&busqueda=<?php echo $busqueda; ?>">|<</a></li>
+            <li><a href="?pagina=<?php echo $pagina-1; ?>&busqueda=<?php echo $busqueda; ?>"><<</a></li>
   
         <?php 
           }
@@ -176,15 +186,16 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
             }
             else
             {
-              echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+              echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
+
             }            
           }
           // Desaparece los últimos botones del paginador cuando sea la última página.
           if ($pagina != $total_paginas)
           {          
         ?>
-        <li><a href="?pagina=<?php echo $pagina+1; ?>">>></a></li>
-        <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+        <li><a href="?pagina=<?php echo $pagina+1; ?>&busqueda=<?php echo $busqueda; ?>">>></a></li>
+        <li><a href="?pagina=<?php echo $total_paginas; ?>&busqueda=<?php echo $busqueda; ?>">>|</a></li>
     <?php }?>
 
       </ul>

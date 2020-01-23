@@ -29,7 +29,7 @@ if ($_SESSION['id_rol'] != 1)
 <head>
 	<meta charset="UTF-8">
 	<?php include "include/scripts.php"; ?>
-	<title>Lista De Usuarios</title>
+	<title>Lista De Refacciones</title>
 </head>
 <body>
 	<?php include "include/header.php" ?>
@@ -38,7 +38,7 @@ if ($_SESSION['id_rol'] != 1)
     <!-- Obtener el valor de la variable del formulario "Buscador" -->
     <?php 
       // Obtiene el valor tanto de GET y POST
-      $busqueda = strtolower($_REQUEST['busqueda']);
+      $busqueda = strlower($_REQUEST['busqueda']);
       if (empty($busqueda))
       {
         header ("location: lista_refaccion.php");
@@ -90,7 +90,7 @@ if ($_SESSION['id_rol'] != 1)
         //print_r (count($datos));
         //exit;
 
-        $por_pagina = 3;
+        $por_pagina = 6;
         
         // Este valor es que se pasara por la URL, cuando se oprime un número del paginador.
         if (empty ($_GET['pagina']))
