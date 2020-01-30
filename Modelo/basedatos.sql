@@ -237,8 +237,9 @@ INSERT INTO t_Tipo_Componente (id_tipo_componente,descripcion) VALUES
 INSERT INTO t_Rol (id_rol,rol) VALUES
   (1,'Administrador'),
   (2,'Supervisor'),
-  (3,'ingenieria');
+  (3,'ingenieria')
 
+/*
 INSERT INTO t_Sucursales (id_sucursal,nombre,num_suc,domicilio,referencias,tel_fijo,tel_movil,contacto) VALUES
   (1,'Banamex Matamoros','4333','Ruta Independencia No. 15150','Dentro Plaza Mariano Matamoros','664-999-99-99','664-99-99','Julio Salazar'),
   (2,'Compartamos Banco','Los Pinos','Blvd. Diaz Ordaz No. 10430','Aun lado de la CFE','664-999-99-99','664-99-99','Juana Sanchez'),
@@ -262,3 +263,4 @@ INSERT INTO t_Refaccion (id_refaccion,descripcion,num_parte,existencia,fecha,id_
   (1,'Panel Board Control','40X9245',1,'2019-10-10',1,1,'Caja doblada'),
 	(2,'Print Head','40X7597',2,'2019-10-09',1,1,''),
 	(3,'Jam Access Cover','40X8279',1,'2019-10-08',1,1,'La parte esta en Almacen ');
+*/

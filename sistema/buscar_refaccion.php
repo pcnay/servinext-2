@@ -38,7 +38,7 @@ if ($_SESSION['id_rol'] != 1)
     <!-- Obtener el valor de la variable del formulario "Buscador" -->
     <?php 
       // Obtiene el valor tanto de GET y POST
-      $busqueda = strlower($_REQUEST['busqueda']);
+      $busqueda = strtolower($_REQUEST['busqueda']);
       if (empty($busqueda))
       {
         header ("location: lista_refaccion.php");
