@@ -56,6 +56,7 @@
         <th>FECHA</th>
         <th>MARCA</th>
         <th>MODELO</th>
+				<th>LargoXAltoXAncho</th>
         <th>OBSERVACIONES</th>
         <th>ACCIONES</th>        
       </tr>
@@ -115,7 +116,7 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
 */
 
           $consulta = new Conexion();
-          $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,r.id_marca,r.id_modelo,marca.descripcion AS mar_descripcion,modelo.descripcion AS mod_descripcion,r.observaciones 
+          $consulta->query = "SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,r.id_marca,r.id_modelo,marca.descripcion AS mar_descripcion,modelo.descripcion AS mod_descripcion,r.medidas,r.observaciones 
           FROM t_Refaccion r 
           INNER JOIN t_Marca AS marca ON r.id_marca = marca.id_marca
           INNER JOIN t_Modelo AS modelo ON r.id_modelo = modelo.id_modelo
@@ -139,6 +140,7 @@ SELECT r.id_refaccion,r.descripcion,r.num_parte,r.existencia,r.fecha,marca.descr
               <td><?php echo $datos2[$n]['fecha']; ?></td>
               <td><?php echo $datos2[$n]['mar_descripcion']; ?></td>
               <td><?php echo $datos2[$n]['mod_descripcion']; ?></td>
+							<td><?php echo $datos2[$n]['medidas']; ?></td>
               <td><?php echo $datos2[$n]['observaciones']; ?></td>
               <td>
                 <!-- Se pasa el "Id" del usuario al archivo "editar_usuario"-->

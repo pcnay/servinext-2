@@ -24,8 +24,9 @@
   
   if (!empty($_POST))
   {
-    $alert = '';
-    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['existencia']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']))  
+		$alert = '';
+		// || empty($_POST['existencia']) 
+    if(empty($_POST['descripcion']) || empty($_POST['num_parte']) || empty($_POST['fecha']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['medidas']))  
     {
       $alert = '<p class="msg_error">Todos los campos son obligatorios </p>';
     }
@@ -36,13 +37,14 @@
       $existencia = $_POST['existencia'];
       $fecha = $_POST['fecha'];
       $marca = $_POST['marca'];
-      $modelo = $_POST['modelo'];
+			$modelo = $_POST['modelo'];
+			$medidas = $_POST['medidas'];
       $observaciones = $_POST['observaciones'];
 
 
         //$query_insert = mysqli_query($conection, "INSERT INTO usuario(idusuario,nombre,correo,usuario,clave,rol) VALUES (0,'$nombre','$correo','$usuario','$clave','$rol')");
         $consulta = new Conexion();        
-        $consulta->query = "INSERT INTO t_Refaccion(id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,observaciones) VALUES (0,'$descripcion','$num_parte',$existencia,'$fecha',$marca,$modelo,'$observaciones')";
+        $consulta->query = "INSERT INTO t_Refaccion(id_refaccion,descripcion,num_parte,existencia,fecha,id_marca,id_modelo,medidas,observaciones) VALUES (0,'$descripcion','$num_parte',$existencia,'$fecha',$marca,$modelo,'$medidas','$observaciones')";
         //print_r ($consulta->query);
         //exit;
 
@@ -150,6 +152,9 @@
           ?>
           
         </select>
+
+        <label for="medidas">Medidas Caja (Largo, Alto, Ancho - Cms)</label>
+        <input type="text" name="medidas" id = "medidas" placeholder="Largo X Alto X Ancho Cms">      
 
         <label for="observaciones">Observaciones</label>
         <textarea name="observaciones" id="observaciones" cols="45" rows = "10" placeholder="Observacions"></textarea>
