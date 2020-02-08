@@ -43,6 +43,13 @@
 						<li><a href="listar_equipo.php">Lista De Equipo</a></li>
 					</ul>
 				</li>
+				<li class="principal">
+					<a href="#">Respaldar Informacion</a>
+					<ul>
+						<li><a href="respaldo_bd.php">Respaldar</a></li>						
+					</ul>
+				</li>
+
 
 			</ul>
 		</nav>

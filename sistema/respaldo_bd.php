@@ -1,4 +1,5 @@
 <?php
+	echo "Iniciando el respaldo ... ";
   $db_host = 'localhost';
   $db_name = 'ordenservicios';
   $db_user = 'servicios';
@@ -18,7 +19,7 @@
     $zip->close();  
     
     // Para borrar el archivo .sql
-    unlink ($salida_sql); 
+    //unlink ($salida_sql); 
     //unlink ($salida_zip); 
 
     // para que muestre como descarga desde un navegador.
